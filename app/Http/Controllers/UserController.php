@@ -6,6 +6,7 @@ use App\Http\Requests\AuthUserRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -49,7 +50,7 @@ class UserController extends ApiController
     /**
      * @SWG\Post(
      *   path="/auth",
-     *   summary="Auth",
+     *   summary="Authorization",
      *   tags={"Users"},
      *   produces={"application/json"},
      *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
@@ -73,6 +74,27 @@ class UserController extends ApiController
 
         $user = User::where('email', $credentials['email'])->first();
         $user->token = $token;
+        return response()->json($user->toArray(), 200);
+    }
+
+    /**
+     * @SWG\Get(
+     *   path="/users/{id}",
+     *   summary="User's data",
+     *   tags={"Users"},
+     *   produces={"application/json"},
+     *   @SWG\Response( response=200, description="Data of user by id"),
+     *   @SWG\Response( response=401, description="Invalid credentials"),
+     * )
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(User $user)
+    {
+        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
+            throw new AccessDeniedHttpException();
+        }
+
         return response()->json($user->toArray(), 200);
     }
 }

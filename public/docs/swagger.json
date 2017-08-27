@@ -71,7 +71,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Auth",
+                "summary": "Authorization",
                 "produces": [
                     "application/json"
                 ],
@@ -94,6 +94,25 @@
                 "responses": {
                     "200": {
                         "description": "Success authorization"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User's data",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data of user by id"
                     },
                     "401": {
                         "description": "Invalid credentials"
