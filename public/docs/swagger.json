@@ -1,0 +1,71 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "RESTfull api for Tiler",
+        "version": "1.0.0"
+    },
+    "host": "api.tiler",
+    "basePath": "/api/v1",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Registration new user",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "User first name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "surname",
+                        "in": "query",
+                        "description": "User last name",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User password",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "User confirmation password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success create new user"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
