@@ -65,6 +65,41 @@
                     }
                 }
             }
+        },
+        "/auth": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Auth",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success authorization"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
         }
     },
     "definitions": {}

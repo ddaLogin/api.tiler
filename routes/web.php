@@ -16,4 +16,6 @@ Route::prefix('/api/v1')->name('v1.')->group(function () {
     Route::prefix('users')->name('users.')->group(function () {
         Route::post('/', ['as' => 'create', 'uses' => 'UserController@create']);
     });
+
+    Route::post('/auth', ['as' => 'auth', 'uses' => 'UserController@auth']);
 });
