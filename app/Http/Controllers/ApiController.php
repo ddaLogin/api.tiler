@@ -18,6 +18,8 @@ namespace App\Http\Controllers;
  * )
  */
 
+/** @SWG\SecurityScheme( securityDefinition="jwt_auth", type="apiKey", in="header", name="Authorization" ) */
+
 class ApiController extends Controller
 {
 

@@ -19,3 +19,14 @@ API for project [Tiler]() base on [Laravel 5.4](https://laravel.com/).
 > Login: `admin@gmail.com`
 
 > Password: `admin`
+
+#### Authorization
+- Send your `login` and `password` to auth api
+- Save `token` from api response
+- Attach your `token` to all next requests in `Authorization` header
+- Example - `Authorization: Bearer your_token_here`
+
+#### Swagger Authorization
+- Make auth request
+- Copy `token` from response
+- In `Authorization` modal window paste string `Bearer your_token_here`
