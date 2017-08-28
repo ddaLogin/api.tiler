@@ -17,7 +17,7 @@ class AddAdminUser extends Migration
             'name' => 'Admin',
             'surname' => null,
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin')
+            'password' => 'admin',
         ]);
     }
 

@@ -106,16 +106,16 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "User's data",
+                "summary": "User detail",
                 "produces": [
                     "application/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Data of user by id"
+                        "description": "User detail"
                     },
                     "401": {
-                        "description": "Invalid credentials"
+                        "description": "Unauthenticated"
                     }
                 }
             }

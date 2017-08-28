@@ -80,11 +80,11 @@ class UserController extends ApiController
     /**
      * @SWG\Get(
      *   path="/users/{id}",
-     *   summary="User's data",
+     *   summary="User detail",
      *   tags={"Users"},
      *   produces={"application/json"},
-     *   @SWG\Response( response=200, description="Data of user by id"),
-     *   @SWG\Response( response=401, description="Invalid credentials"),
+     *   @SWG\Response( response=200, description="User detail"),
+     *   @SWG\Response( response=401, description="Unauthenticated"),
      * )
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
