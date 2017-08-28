@@ -121,10 +121,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User detail"
+                        "description": "Success get user detail"
                     },
                     "401": {
                         "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "authorization token is required"
                     }
                 },
                 "security": [
