@@ -26,6 +26,17 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
     }
 
     /**
+     * return user by email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function getByEmail(string $email): User
+    {
+        return User::where('email', $email)->first();
+    }
+
+    /**
      * store|update user
      *
      * @param array $data

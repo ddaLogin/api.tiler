@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthUserRequest;
 use App\Http\Requests\CreateUserRequest;
+use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Services\UserService;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -13,14 +14,17 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class UserController extends ApiController
 {
     private $userService;
+    private $userRepository;
 
     /**
      * UserController constructor.
      * @param UserService $userService
+     * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, UserRepositoryInterface $userRepository)
     {
         $this->userService = $userService;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -69,10 +73,10 @@ class UserController extends ApiController
                 return response()->json(['error' => trans('auth.failed')], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => "Couldn't generate token"], 500);
+            return response()->json(['error' => trans('auth.jwt.failed')], 500);
         }
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = $this->userRepository->getByEmail($credentials['email']);
         $user->token = $token;
         return response()->json($user->toArray(), 200);
     }

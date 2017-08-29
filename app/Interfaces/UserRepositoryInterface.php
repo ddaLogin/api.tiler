@@ -14,12 +14,20 @@ use App\Models\User;
 interface UserRepositoryInterface
 {
     /**
-     * return target model by id
+     * return user by id
      *
      * @param int $id
      * @return User
      */
     public function getById(int $id):User;
+
+    /**
+     * return user by email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function getByEmail(string $email):User;
 
     /**
      * store|update user
