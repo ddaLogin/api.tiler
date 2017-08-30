@@ -10,6 +10,7 @@ namespace App\Interfaces;
 
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryInterface
 {
@@ -37,4 +38,11 @@ interface UserRepositoryInterface
      * @return User
      */
     public function store(array $data, int $id = null);
+
+    /**
+     * return all users
+     *
+     * @return Collection
+     */
+    public function all();
 }

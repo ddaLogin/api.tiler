@@ -11,6 +11,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class MySQLUserRepositoryInterface implements UserRepositoryInterface
 {
@@ -59,5 +60,15 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
         }
 
         throw new \Exception("Couldn't store user");
+    }
+
+    /**
+     * return all users
+     *
+     * @return Collection
+     */
+    public function all()
+    {
+        return User::all();
     }
 }

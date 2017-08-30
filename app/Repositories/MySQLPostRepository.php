@@ -11,6 +11,7 @@ namespace App\Repositories;
 
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Collection;
 
 class MySQLPostRepository implements PostRepositoryInterface
 {
@@ -45,5 +46,15 @@ class MySQLPostRepository implements PostRepositoryInterface
         }
 
         throw new \Exception("Couldn't store post");
+    }
+
+    /**
+     * return all posts
+     *
+     * @return Collection
+     */
+    public function all()
+    {
+        return Post::all();
     }
 }

@@ -10,6 +10,7 @@ namespace App\Interfaces;
 
 
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Collection;
 
 interface PostRepositoryInterface
 {
@@ -29,4 +30,11 @@ interface PostRepositoryInterface
      * @return Post
      */
     public function store(array $data, int $id = null);
+
+    /**
+     * return all posts
+     *
+     * @return Collection
+     */
+    public function all();
 }
