@@ -12,6 +12,7 @@
 */
 
 Route::prefix('/api/v1')->name('v1.')->group(function () {
+    Route::post('/auth', ['as' => 'auth', 'uses' => 'UserController@auth']);
 
     Route::prefix('users')->name('users.')->group(function () {
         Route::post('/', ['as' => 'create', 'uses' => 'UserController@create']);
@@ -21,5 +22,10 @@ Route::prefix('/api/v1')->name('v1.')->group(function () {
         });
     });
 
-    Route::post('/auth', ['as' => 'auth', 'uses' => 'UserController@auth']);
+    Route::prefix('posts')->name('posts.')->group(function () {
+
+        Route::middleware('jwt.auth')->group(function () {
+            Route::post('/', ['as' => 'create', 'uses' => 'PostController@create']);
+        });
+    });
 });

@@ -10,6 +10,56 @@
         "http"
     ],
     "paths": {
+        "/posts": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Publish new post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Title of post",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "Post's text",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "preview",
+                        "in": "formData",
+                        "description": "Post's preview",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success create new post"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_auth": []
+                    }
+                ]
+            }
+        },
         "/users": {
             "post": {
                 "tags": [
