@@ -33,3 +33,10 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'preview' => null,
     ];
 });
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word
+    ];
+});

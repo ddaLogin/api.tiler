@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-
     use ValidateTrait;
+
     /**
      * The attributes that are mass assignable.
      *

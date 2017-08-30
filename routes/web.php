@@ -31,4 +31,8 @@ Route::prefix('/api/v1')->name('v1.')->group(function () {
             Route::post('/', ['as' => 'create', 'uses' => 'PostController@create']);
         });
     });
+
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'CategoryController@index']);
+    });
 });

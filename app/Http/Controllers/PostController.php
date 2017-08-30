@@ -33,7 +33,6 @@ class PostController extends ApiController
      *   tags={"Posts"},
      *   produces={"application/json"},
      *   @SWG\Response( response=200, description="Success"),
-     *   security={{"jwt_auth":{}}},
      * )
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

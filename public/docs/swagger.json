@@ -10,6 +10,22 @@
         "http"
     ],
     "paths": {
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get all categories",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/posts": {
             "get": {
                 "tags": [
@@ -23,12 +39,7 @@
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "jwt_auth": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
