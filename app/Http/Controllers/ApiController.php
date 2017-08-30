@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 
 /**
- * @SWG\Swagger( schemes={"http"}, host="api.tiler", basePath="/api/v1" )
+ * @SWG\Swagger( schemes={"http"}, host="api.tiler.com", basePath="/api/v1" )
  */
 
 /**

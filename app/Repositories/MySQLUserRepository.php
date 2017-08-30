@@ -20,7 +20,7 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
      * @param int $id
      * @return User
      */
-    public function getById(int $id): User
+    public function getById(int $id)
     {
         return User::findorfail($id);
     }
@@ -31,7 +31,7 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
      * @param string $email
      * @return User
      */
-    public function getByEmail(string $email): User
+    public function getByEmail(string $email)
     {
         return User::where('email', $email)->first();
     }
@@ -44,7 +44,7 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
      * @return User
      * @throws \Exception
      */
-    public function store(array $data, int $id = null): User
+    public function store(array $data, int $id = null)
     {
         $user = ($id)?$this->getById($id):new User();
 

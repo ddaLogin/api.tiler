@@ -19,7 +19,7 @@ interface PostRepositoryInterface
      * @param int $id
      * @return Post
      */
-    public function getById(int $id):Post;
+    public function getById(int $id);
 
     /**
      * store|update post
@@ -28,5 +28,5 @@ interface PostRepositoryInterface
      * @param int|null $id
      * @return Post
      */
-    public function store(array $data, int $id = null):Post;
+    public function store(array $data, int $id = null);
 }

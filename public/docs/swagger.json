@@ -4,7 +4,7 @@
         "title": "RESTfull api for Tiler",
         "version": "1.0.0"
     },
-    "host": "api.tiler",
+    "host": "api.tiler.com",
     "basePath": "/api/v1",
     "schemes": [
         "http"

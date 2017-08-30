@@ -21,7 +21,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      * @param int $id
      * @return Post
      */
-    public function getById(int $id): Post
+    public function getById(int $id)
     {
         return Post::findorfail($id);
     }
@@ -34,7 +34,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      * @return Post
      * @throws \Exception
      */
-    public function store(array $data, int $id = null): Post
+    public function store(array $data, int $id = null)
     {
         $post = ($id)?$this->getById($id):new Post();
 

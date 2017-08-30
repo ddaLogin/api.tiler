@@ -21,7 +21,8 @@ API for project [Tiler]() base on [Laravel 5.4](https://laravel.com/).
 
 > Password: `admin`
 
-#### Authorization
+## Authorization
+#### API authorization
 - Send your `login` and `password` to auth api
 - Save `token` from api response
 - Attach your `token` to all next requests in `Authorization` header
@@ -31,3 +32,11 @@ API for project [Tiler]() base on [Laravel 5.4](https://laravel.com/).
 - Make auth request
 - Copy `token` from response
 - In `Authorization` modal window paste string `Bearer your_token_here`
+
+#### Social authorization 
+###### Available social networks - keys
+* Google - `google`
+###### Guide
+- Make redirect to url `/api/v1/auth/{key}?callback_url={your_callback_page}`
+- After all redirects and authorization in social network, browser return to your callback page with token in url parameters
+- Use it token in api authorization

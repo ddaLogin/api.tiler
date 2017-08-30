@@ -13,6 +13,8 @@
 
 Route::prefix('/api/v1')->name('v1.')->group(function () {
     Route::post('/auth', ['as' => 'auth', 'uses' => 'UserController@auth']);
+    Route::get('/auth/{driver}', ['as' => 'auth.redirect', 'uses' => 'SocialiteController@redirect'])->where('driver', 'google');
+    Route::get('/auth/{driver}/callback', ['as' => 'auth.callback', 'uses' => 'SocialiteController@callback'])->where('driver', 'google');
 
     Route::prefix('users')->name('users.')->group(function () {
         Route::post('/', ['as' => 'create', 'uses' => 'UserController@create']);

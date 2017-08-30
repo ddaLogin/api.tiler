@@ -19,7 +19,7 @@ interface UserRepositoryInterface
      * @param int $id
      * @return User
      */
-    public function getById(int $id):User;
+    public function getById(int $id);
 
     /**
      * return user by email
@@ -27,7 +27,7 @@ interface UserRepositoryInterface
      * @param string $email
      * @return User
      */
-    public function getByEmail(string $email):User;
+    public function getByEmail(string $email);
 
     /**
      * store|update user
@@ -36,5 +36,5 @@ interface UserRepositoryInterface
      * @param int|null $id
      * @return User
      */
-    public function store(array $data, int $id = null):User;
+    public function store(array $data, int $id = null);
 }
