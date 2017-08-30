@@ -54,6 +54,7 @@ class PostController extends ApiController
      *   @SWG\Parameter( name="title", description="Title of post", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="text", description="Post's text", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="preview", description="Post's preview", required=false, type="file", in="formData"),
+     *   @SWG\Parameter( name="category_id", description="Post's category id", required=false, type="integer", in="query"),
      *   @SWG\Response( response=201, description="Success create new post"),
      *   @SWG\Response( response=422, description="Validation errors"),
      *   security={{"jwt_auth":{}}},

@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
     public function run(\App\Interfaces\UserRepositoryInterface $userRepository)
     {
         foreach ($userRepository->all() as $user){
-            factory(\App\Models\Post::class, 3)->create(['user_id' => $user->id]);
+            factory(\App\Models\Post::class, 3)->create(['user_id' => $user->id, 'category_id' => rand(1, 3)]);
         }
     }
 }

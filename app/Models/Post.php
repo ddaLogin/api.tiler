@@ -15,7 +15,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'text', 'preview',
+        'user_id', 'category_id', 'title', 'text', 'preview',
     ];
 
     /**
@@ -27,6 +27,7 @@ class Post extends Model
     {
         return [
             'user_id' => 'exists:users,id',
+            'category_id' => 'exists:categories,id',
             'title' => 'required|max:150',
             'text' => 'required',
             'preview' => 'mimetypes:image/jpg,image/jpeg,image/png,image/bmp',
