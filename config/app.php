@@ -179,6 +179,7 @@ return [
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
