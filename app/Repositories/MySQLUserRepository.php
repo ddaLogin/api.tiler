@@ -50,7 +50,7 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
         $user = ($id)?$this->getById($id):new User();
 
         if(key_exists('password', $data)){
-            $user->password = $data['password'];
+            $user->password = bcrypt($data['password']);
         }
 
         $user->fill($data);

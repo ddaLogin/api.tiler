@@ -78,6 +78,18 @@ return [
             'prefix' => '',
         ],
 
+        'testing' => [
+            'driver'    => env('TESTING_DB_CONNECTION', 'mysql'),
+            'host'      => env('TESTING_DB_HOST', '127.0.0.1'),
+            'port'      => env('TESTING_DB_PORT', '3306'),
+            'database'  => env('TESTING_DB_DATABASE', 'tiler_test'),
+            'username'  => env('TESTING_DB_USERNAME', 'root'),
+            'password'  => env('TESTING_DB_PASSWORD', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => true,
+        ],
     ],
 
     /*

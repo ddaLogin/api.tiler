@@ -89,8 +89,9 @@ class UserController extends ApiController
      *   produces={"application/json"},
      *   @SWG\Parameter( name="id", description="User id", required=true, type="string", in="path"),
      *   @SWG\Response( response=200, description="Success get user detail"),
-     *   @SWG\Response( response=401, description="Unauthenticated"),
      *   @SWG\Response( response=400, description="authorization token is required"),
+     *   @SWG\Response( response=401, description="Unauthenticated"),
+     *   @SWG\Response( response=403, description="Access denied"),
      *   security={{"jwt_auth":{}}}
      * )
      * @param User $user

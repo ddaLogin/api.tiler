@@ -210,11 +210,14 @@
                     "200": {
                         "description": "Success get user detail"
                     },
+                    "400": {
+                        "description": "authorization token is required"
+                    },
                     "401": {
                         "description": "Unauthenticated"
                     },
-                    "400": {
-                        "description": "authorization token is required"
+                    "403": {
+                        "description": "Access denied"
                     }
                 },
                 "security": [

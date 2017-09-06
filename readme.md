@@ -11,8 +11,8 @@ API for project [Tiler]() base on [Laravel 5.5](https://laravel.com/).
 ## Getting started
 - [Configuration Laravel](https://laravel.com/docs/5.4/installation#configuration)
 - [Install](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies) php dependencies `composer install`
-- Create database, default db name is `tiler`
-- [Run migration](https://laravel.com/docs/5.4/migrations#running-migrations) `php artisan migrate`
+- Create databases, default names is `tiler` - required, `tiler_test` - for using tests
+- [Run migration](https://laravel.com/docs/5.4/migrations#running-migrations) `php artisan migrate` and for test `php artisan migrate --database=testing`
 - Create symbolic link to upload images `php artisan storage:link`
 - Read [API docs](api.tiler/docs) `api.tiler/docs/index.html`
 
