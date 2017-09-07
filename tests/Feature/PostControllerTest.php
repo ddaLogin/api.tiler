@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Post;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\JWTAuthTrait;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
     use JWTAuthTrait;
 
     public function testIndexSuccess()

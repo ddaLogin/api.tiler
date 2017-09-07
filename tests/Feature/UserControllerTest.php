@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\JWTAuthTrait;
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
     use JWTAuthTrait;
 
     public function testCreateSuccess()
