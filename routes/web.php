@@ -21,7 +21,7 @@ Route::prefix('/api/v1')->name('v1.')->group(function () {
         Route::get('/{user}', ['as' => 'show', 'uses' => 'UserController@show']);
 
         Route::middleware('jwt.auth')->group(function () {
-
+            Route::put('/{user}', ['as' => 'update', 'uses' => 'UserController@update']);
         });
     });
 

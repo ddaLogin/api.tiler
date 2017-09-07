@@ -35,4 +35,16 @@ class UserService
     {
         return $this->userRepository->store($data);
     }
+
+    /**
+     * update user by id
+     *
+     * @param array $data
+     * @param int $user_id
+     * @return User
+     */
+    public function update(array $data, int $user_id):User
+    {
+        return $this->userRepository->store($data, $user_id);
+    }
 }

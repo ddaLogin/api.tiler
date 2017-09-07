@@ -72,11 +72,58 @@ class UserControllerTest extends TestCase
         $response->assertJson(['error' => trans('auth.failed')]);
     }
 
-    public function testUserShowSuccess()
+    public function testShowSuccess()
     {
         $response = $this->get(route('v1.users.show', 1), $this->getJWTHeader());
 
         $response->assertStatus(200);
         $response->assertJsonStructure(['name', 'surname', 'email', 'created_at', 'updated_at']);
+    }
+
+    public function testUpdateSuccess()
+    {
+        $newUserData = factory(User::class)->make()->toArray();
+        $newUserData['password'] = 'secret';
+        $newUserData['password_confirmation'] = 'secret';
+        $newUserData['current_password'] = 'admin';
+        $response = $this->putJson(route('v1.users.update', 1), $newUserData, $this->getJWTHeader());
+
+        $data = [
+            'name' => $newUserData['name'],
+            'surname' => $newUserData['surname'],
+            'email' => $newUserData['email'],
+        ];
+        $response->assertStatus(200);
+        $response->assertJsonFragment($data);
+        $this->assertDatabaseHas('users', $data);
+
+        $response = $this->postJson(route('v1.auth'), ['email' => $newUserData['email'], 'password' => 'secret']);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['id', 'name', 'surname', 'email', 'created_at', 'updated_at', 'token']);
+    }
+
+    public function testUpdateFailAccessDeniedByUserId()
+    {
+        $otherUser = factory(User::class)->create();
+
+        $newUserData = factory(User::class)->make()->toArray();
+        $newUserData['current_password'] = 'admin';
+        $response = $this->putJson(route('v1.users.update', $otherUser->id), $newUserData, $this->getJWTHeader());
+
+
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('users', ['email' => $newUserData['email']]);
+    }
+
+    public function testUpdateFailAccessDeniedByWrongPassword()
+    {
+        $newUserData = factory(User::class)->make()->toArray();
+        $newUserData['current_password'] = 'wrong_password';
+        $response = $this->putJson(route('v1.users.update', 1), $newUserData, $this->getJWTHeader());
+
+
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('users', ['email' => $newUserData['email']]);
     }
 }
