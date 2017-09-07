@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Extensions\ValidateTrait;
+use App\Rules\Base64;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email',
+        'name', 'surname', 'email', 'avatar'
     ];
 
     /**
@@ -40,7 +41,8 @@ class User extends Authenticatable
             'name' => 'required|min:2|max:15',
             'surname' => 'min:3|max:20',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'avatar' => [new Base64()],
+            'password' => 'required|confirmed',
         ];
     }
 }

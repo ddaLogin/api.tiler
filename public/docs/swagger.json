@@ -253,6 +253,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "avatar",
+                        "in": "query",
+                        "description": "User avatar in base64 encode",
+                        "required": false,
+                        "type": "base64"
+                    },
+                    {
                         "name": "password",
                         "in": "query",
                         "description": "New user password",
