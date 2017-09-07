@@ -88,21 +88,13 @@ class UserController extends ApiController
      *   tags={"Users"},
      *   produces={"application/json"},
      *   @SWG\Parameter( name="id", description="User id", required=true, type="string", in="path"),
-     *   @SWG\Response( response=200, description="Success get user detail"),
-     *   @SWG\Response( response=400, description="authorization token is required"),
-     *   @SWG\Response( response=401, description="Unauthenticated"),
-     *   @SWG\Response( response=403, description="Access denied"),
-     *   security={{"jwt_auth":{}}}
+     *   @SWG\Response( response=200, description="Success get user detail")
      * )
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
     {
-        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
-            throw new AccessDeniedHttpException();
-        }
-
         return response()->json($user->toArray(), 200);
     }
 }

@@ -79,12 +79,4 @@ class UserControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure(['name', 'surname', 'email', 'created_at', 'updated_at']);
     }
-
-    public function testUserShowFail()
-    {
-        $user = factory(User::class)->create();
-        $response = $this->get(route('v1.users.show', 1), $this->getJWTHeader($user->id));
-
-        $response->assertStatus(403);
-    }
 }
