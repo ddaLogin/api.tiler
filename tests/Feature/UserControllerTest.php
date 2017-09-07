@@ -83,7 +83,7 @@ class UserControllerTest extends TestCase
     public function testUserShowFail()
     {
         $user = factory(User::class)->create();
-        $response = $this->get(route('v1.users.show', 1), $this->getJWTHeader($user));
+        $response = $this->get(route('v1.users.show', 1), $this->getJWTHeader($user->id));
 
         $response->assertStatus(403);
     }

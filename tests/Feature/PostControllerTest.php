@@ -22,13 +22,25 @@ class PostControllerTest extends TestCase
         $response->assertJson($posts->toArray());
     }
 
-//    public function testCreateSuccess()
-//    {
-//        $post = factory(Post::class)->make();
-//
-//        $response = $this->postJson(route('v1.posts.create'), $post->toArray(), $this->getJWTHeader());
-//
-//        $response->assertStatus(201);
-//        $response->assertJsonFragment($post->toArray());
-//    }
+    public function testCreateSuccess()
+    {
+        $post = factory(Post::class)->make();
+
+        $response = $this->postJson(route('v1.posts.create'), $post->toArray(), $this->getJWTHeader($post->user_id));
+
+        $response->assertStatus(201);
+        $response->assertJsonFragment($post->toArray());
+    }
+
+    public function testCreateFail()
+    {
+        $response = $this->postJson(route('v1.posts.create'), [], $this->getJWTHeader());
+
+        $data = [
+            'title' => [trans('validation.required', ['attribute' => 'title'])],
+            'text' => [trans('validation.required', ['attribute' => 'text'])],
+        ];
+        $response->assertStatus(422);
+        $response->assertJsonFragment($data);
+    }
 }

@@ -27,11 +27,14 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => 1,
-        'category_id' => null,
+        'user_id' => function () {
+            return factory(\App\Models\User::class)->create()->id;
+        },
+        'category_id' => function () {
+            return factory(\App\Models\Category::class)->create()->id;
+        },
         'title' => $faker->sentence(6),
         'text' => $faker->text(),
-        'preview' => null,
     ];
 });
 
