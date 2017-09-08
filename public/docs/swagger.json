@@ -72,7 +72,7 @@
                         "in": "formData",
                         "description": "Post's preview",
                         "required": false,
-                        "type": "file"
+                        "type": "base64"
                     },
                     {
                         "name": "category_id",

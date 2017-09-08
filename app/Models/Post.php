@@ -30,18 +30,6 @@ class Post extends Model
             'category_id' => 'exists:categories,id',
             'title' => 'required|max:150',
             'text' => 'required',
-            'preview' => 'mimetypes:image/jpg,image/jpeg,image/png,image/bmp',
         ];
-    }
-
-    /**
-     * Get the post's preview.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getPreviewAttribute($value)
-    {
-        return ($value)?config('upload.previewRoot').$value:null;
     }
 }

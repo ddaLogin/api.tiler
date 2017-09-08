@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
 
             $table->string('title', 150);
             $table->longText('text');
-            $table->string('preview')->nullable()->default(null);
+            $table->text('preview')->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -35,8 +35,6 @@ class PostService
      */
     public function publish(array $data):Post
     {
-        $data['preview'] = (key_exists('preview', $data))?$this->storePreview($data['preview']):null;
-
         return $this->postRepository->store($data);
     }
 
