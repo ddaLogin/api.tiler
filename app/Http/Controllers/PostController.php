@@ -71,4 +71,21 @@ class PostController extends ApiController
 
         return response()->json($post->toArray(), 201);
     }
+
+    /**
+     * @SWG\Get(
+     *   path="/posts/{id}",
+     *   summary="Post detail",
+     *   tags={"Posts"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="id", description="Post id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Success get post detail"),
+     * )
+     * @param Post $post
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Post $post)
+    {
+        return response()->json($post->toArray(), 200);
+    }
 }
