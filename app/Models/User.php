@@ -41,7 +41,6 @@ class User extends Authenticatable
             'name' => 'required|min:2|max:15',
             'surname' => 'min:3|max:20',
             'email' => 'required|email|unique:users',
-            'avatar' => [new Base64()],
             'password' => 'required|confirmed',
         ];
     }

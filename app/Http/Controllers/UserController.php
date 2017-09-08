@@ -39,6 +39,7 @@ class UserController extends ApiController
      *   @SWG\Parameter( name="name", description="User first name", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="surname", description="User last name", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
+     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="base64", in="query"),
      *   @SWG\Parameter( name="password", description="User password", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="password_confirmation", description="User confirmation password", required=true, type="string", in="query"),
      *   @SWG\Response( response=201, description="Success create new user"),
