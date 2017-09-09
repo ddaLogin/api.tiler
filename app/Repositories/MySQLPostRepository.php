@@ -57,4 +57,15 @@ class MySQLPostRepository implements PostRepositoryInterface
     {
         return Post::all();
     }
+
+    /**
+     * return all posts by user id
+     *
+     * @param $user_id
+     * @return Collection
+     */
+    public function getByUserId($user_id)
+    {
+        return Post::where('user_id', $user_id)->get();
+    }
 }

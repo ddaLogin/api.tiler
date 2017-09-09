@@ -37,4 +37,12 @@ interface PostRepositoryInterface
      * @return Collection
      */
     public function all();
+
+    /**
+     * return all posts by user id
+     *
+     * @param $user_id
+     * @return Collection
+     */
+    public function getByUserId($user_id);
 }

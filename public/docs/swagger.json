@@ -42,7 +42,55 @@
                 }
             }
         },
+        "/posts/{post_id}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Post detail",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get post detail"
+                    }
+                }
+            }
+        },
         "/users/{user_id}/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Post detail",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get post detail"
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Posts"
@@ -107,31 +155,6 @@
                         "jwt_auth": []
                     }
                 ]
-            }
-        },
-        "/posts/{id}": {
-            "get": {
-                "tags": [
-                    "Posts"
-                ],
-                "summary": "Post detail",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Post id",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success get post detail"
-                    }
-                }
             }
         },
         "/users": {

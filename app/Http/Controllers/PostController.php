@@ -47,6 +47,42 @@ class PostController extends ApiController
     }
 
     /**
+     * @SWG\Get(
+     *   path="/posts/{post_id}",
+     *   summary="Post detail",
+     *   tags={"Posts"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="post_id", description="Post id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Success get post detail"),
+     * )
+     * @param Post $post
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Post $post)
+    {
+        return response()->json($post->toArray(), 200);
+    }
+
+    /**
+     * @SWG\Get(
+     *   path="/users/{user_id}/posts",
+     *   summary="Post detail",
+     *   tags={"Posts"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Success get post detail"),
+     * )
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function byUser(User $user)
+    {
+        $posts = $this->postRepository->getByUserId($user->id);
+
+        return response()->json($posts->toArray(), 200);
+    }
+
+    /**
      * @SWG\Post(
      *   path="/users/{user_id}/posts",
      *   summary="Publish new post",
@@ -78,22 +114,5 @@ class PostController extends ApiController
         $post = $this->postService->publish($data);
 
         return response()->json($post->toArray(), 201);
-    }
-
-    /**
-     * @SWG\Get(
-     *   path="/posts/{id}",
-     *   summary="Post detail",
-     *   tags={"Posts"},
-     *   produces={"application/json"},
-     *   @SWG\Parameter( name="id", description="Post id", required=true, type="string", in="path"),
-     *   @SWG\Response( response=200, description="Success get post detail"),
-     * )
-     * @param Post $post
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(Post $post)
-    {
-        return response()->json($post->toArray(), 200);
     }
 }
