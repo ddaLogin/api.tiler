@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\JWTAuthTrait;
 use Tests\TestCase;
@@ -26,15 +27,15 @@ class PostControllerTest extends TestCase
     {
         $post = factory(Post::class)->make();
 
-        $response = $this->postJson(route('v1.posts.create'), $post->toArray(), $this->getJWTHeader($post->user_id));
+        $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray(), $this->getJWTHeader($post->user_id));
 
         $response->assertStatus(201);
         $response->assertJsonFragment($post->toArray());
     }
 
-    public function testCreateFail()
+    public function testCreateFailValidation()
     {
-        $response = $this->postJson(route('v1.posts.create'), [], $this->getJWTHeader());
+        $response = $this->postJson(route('v1.posts.create', 1), [], $this->getJWTHeader());
 
         $data = [
             'title' => [trans('validation.required', ['attribute' => 'title'])],
@@ -42,6 +43,20 @@ class PostControllerTest extends TestCase
         ];
         $response->assertStatus(422);
         $response->assertJsonFragment($data);
+    }
+
+    public function testCreateFailAccessDenied()
+    {
+        $fakeUser = factory(User::class)->create();
+        $post = factory(Post::class)->make();
+
+        $response = $this->postJson(route('v1.posts.create', $fakeUser->id), $post->toArray(), $this->getJWTHeader());
+
+        $data = [
+            'title' => [trans('validation.required', ['attribute' => 'title'])],
+            'text' => [trans('validation.required', ['attribute' => 'text'])],
+        ];
+        $response->assertStatus(403);
     }
 
     public function testShowSuccess()

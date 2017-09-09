@@ -24,6 +24,11 @@ class CreatePostRequest extends FormRequest
      */
     public function rules()
     {
-        return (new Post())->getValidationRules();
+        return [
+            'user_id' => 'exists:users,id',
+            'category_id' => 'exists:categories,id',
+            'title' => 'required|max:150',
+            'text' => 'required',
+        ];
     }
 }

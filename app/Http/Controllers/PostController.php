@@ -6,8 +6,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
+use App\Models\User;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends ApiController
@@ -46,27 +48,33 @@ class PostController extends ApiController
 
     /**
      * @SWG\Post(
-     *   path="/posts",
+     *   path="/users/{user_id}/posts",
      *   summary="Publish new post",
      *   tags={"Posts"},
      *   produces={"application/json"},
      *   consumes={"multipart/form-data"},
+     *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
      *   @SWG\Parameter( name="title", description="Title of post", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="text", description="Post's text", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="preview", description="Post's preview", required=false, type="base64", in="formData"),
      *   @SWG\Parameter( name="category_id", description="Post's category id", required=false, type="integer", in="query"),
      *   @SWG\Response( response=201, description="Success create new post"),
+     *   @SWG\Response( response=403, description="Access denied"),
      *   @SWG\Response( response=422, description="Validation errors"),
      *   security={{"jwt_auth":{}}},
      * )
      * @param CreatePostRequest $request
+     * @param User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(CreatePostRequest $request)
+    public function create(CreatePostRequest $request, User $user)
     {
-        $data = $request->all();
-        $data['user_id'] = JWTAuth::parseToken()->authenticate()->id;
+        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
+            throw new AccessDeniedHttpException();
+        }
 
+        $data = $request->all();
+        $data['user_id'] = $user->id;
         $post = $this->postService->publish($data);
 
         return response()->json($post->toArray(), 201);

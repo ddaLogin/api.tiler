@@ -37,12 +37,4 @@ class PostService
     {
         return $this->postRepository->store($data);
     }
-
-    public function storePreview(UploadedFile $preview):string
-    {
-        $filePath = Storage::putFile(config('upload.preview'), $preview);
-        $path_parts = pathinfo($filePath);
-
-        return $path_parts['filename'].'.'.$path_parts['extension'];
-    }
 }

@@ -40,7 +40,9 @@
                         "description": "Success"
                     }
                 }
-            },
+            }
+        },
+        "/users/{user_id}/posts": {
             "post": {
                 "tags": [
                     "Posts"
@@ -53,6 +55,13 @@
                     "application/json"
                 ],
                 "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    },
                     {
                         "name": "title",
                         "in": "query",
@@ -85,6 +94,9 @@
                 "responses": {
                     "201": {
                         "description": "Success create new post"
+                    },
+                    "403": {
+                        "description": "Access denied"
                     },
                     "422": {
                         "description": "Validation errors"
