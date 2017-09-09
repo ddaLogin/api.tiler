@@ -11,30 +11,15 @@
 |
 */
 
-Route::prefix('/api/v1')->name('v1.')->group(function () {
-    Route::post('/auth', ['as' => 'auth', 'uses' => 'UserController@auth']);
-    Route::get('/auth/{driver}', ['as' => 'auth.redirect', 'uses' => 'SocialiteController@redirect'])->where('driver', 'google');
-    Route::get('/auth/{driver}/callback', ['as' => 'auth.callback', 'uses' => 'SocialiteController@callback'])->where('driver', 'google');
+$loader = function ($routeFolder){
+    $directoryIterator = new DirectoryIterator($routeFolder);
+    foreach ($directoryIterator as $directory) {
+        if ($directory->isFile()) {
+            require $routeFolder . $directory->getFilename();
+        }
+    }
+};
 
-    Route::prefix('users')->name('users.')->group(function () {
-        Route::post('/', ['as' => 'create', 'uses' => 'UserController@create']);
-        Route::get('/{user}', ['as' => 'show', 'uses' => 'UserController@show']);
-
-        Route::middleware('jwt.auth')->group(function () {
-            Route::put('/{user}', ['as' => 'update', 'uses' => 'UserController@update']);
-        });
-    });
-
-    Route::prefix('posts')->name('posts.')->group(function () {
-        Route::get('/', ['as' => 'index', 'uses' => 'PostController@index']);
-        Route::get('/{post}', ['as' => 'show', 'uses' => 'PostController@show']);
-
-        Route::middleware('jwt.auth')->group(function () {
-            Route::post('/', ['as' => 'create', 'uses' => 'PostController@create']);
-        });
-    });
-
-    Route::prefix('categories')->name('categories.')->group(function () {
-        Route::get('/', ['as' => 'index', 'uses' => 'CategoryController@index']);
-    });
+Route::prefix('/api/v1')->name('v1.')->group(function () use($loader) {
+    $loader(__DIR__ . '/v1/');
 });
