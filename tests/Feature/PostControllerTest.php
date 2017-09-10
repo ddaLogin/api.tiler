@@ -52,10 +52,6 @@ class PostControllerTest extends TestCase
 
         $response = $this->postJson(route('v1.posts.create', $fakeUser->id), $post->toArray(), $this->getJWTHeader());
 
-        $data = [
-            'title' => [trans('validation.required', ['attribute' => 'title'])],
-            'text' => [trans('validation.required', ['attribute' => 'text'])],
-        ];
         $response->assertStatus(403);
     }
 

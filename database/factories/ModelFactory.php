@@ -33,6 +33,7 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'category_id' => function () {
             return factory(\App\Models\Category::class)->create()->id;
         },
+        'collection_id' => null,
         'title' => $faker->sentence(6),
         'text' => $faker->text(),
     ];
@@ -42,5 +43,15 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Collection::class, function (Faker\Generator $faker) {
+    return [
+        'name' => 'test name',
+        'user_id' => function () {
+            return factory(\App\Models\User::class)->create()->id;
+        },
     ];
 });

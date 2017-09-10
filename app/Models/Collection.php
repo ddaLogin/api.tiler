@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Extensions\ValidateTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Collection extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,6 +12,6 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'category_id', 'collection_id', 'title', 'text', 'preview',
+        'name', 'user_id',
     ];
 }
