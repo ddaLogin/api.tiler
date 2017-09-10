@@ -29,6 +29,7 @@ class CreateUserRequest extends JsonRequest
             'surname' => 'min:3|max:20',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
+            'terms' => 'required|accepted',
         ];
     }
 }
