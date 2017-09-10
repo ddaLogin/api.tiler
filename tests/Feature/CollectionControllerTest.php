@@ -42,4 +42,13 @@ class CollectionControllerTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonFragment($data);
     }
+
+    public function testByUser()
+    {
+        $collections = factory(Collection::class, 5)->create(['user_id' => 1]);
+
+        $response = $this->get(route('v1.collections.byUser', 1));
+        $response->assertStatus(200);
+        $response->assertJsonFragment([$collections->toArray()]);
+    }
 }
