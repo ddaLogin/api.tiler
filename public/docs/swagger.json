@@ -27,6 +27,29 @@
             }
         },
         "/users/{user_id}/collections": {
+            "get": {
+                "tags": [
+                    "Collections"
+                ],
+                "summary": "Get user's collections",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get post detail"
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Collections"

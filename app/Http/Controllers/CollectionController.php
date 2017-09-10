@@ -51,4 +51,23 @@ class CollectionController extends Controller
 
         return response()->json($collection->toArray(), 201);
     }
+
+    /**
+     * @SWG\Get(
+     *   path="/users/{user_id}/collections",
+     *   summary="Get user's collections",
+     *   tags={"Collections"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Success get post detail"),
+     * )
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function byUser(User $user)
+    {
+        $collections = $this->collectionRepository->byUser($user->id);
+
+        return response()->json($collections->toArray(), 200);
+    }
 }
