@@ -24,6 +24,11 @@ class CreateUserRequest extends JsonRequest
      */
     public function rules()
     {
-        return (new User())->getValidationRules();
+        return [
+            'name' => 'required|min:2|max:15',
+            'surname' => 'min:3|max:20',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+        ];
     }
 }

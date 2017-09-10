@@ -94,6 +94,7 @@ class PostController extends ApiController
      *   @SWG\Parameter( name="text", description="Post's text", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="preview", description="Post's preview", required=false, type="base64", in="formData"),
      *   @SWG\Parameter( name="category_id", description="Post's category id", required=false, type="integer", in="query"),
+     *   @SWG\Parameter( name="collection_id", description="Post's collection id", required=false, type="integer", in="query"),
      *   @SWG\Response( response=201, description="Success create new post"),
      *   @SWG\Response( response=403, description="Access denied"),
      *   @SWG\Response( response=422, description="Validation errors"),

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Collection;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -53,6 +54,15 @@ class PostControllerTest extends TestCase
         $response = $this->postJson(route('v1.posts.create', $fakeUser->id), $post->toArray(), $this->getJWTHeader());
 
         $response->assertStatus(403);
+    }
+
+    public function testCreateFailToAlienCollection()
+    {
+        $collection = factory(Collection::class)->create();
+        $post = factory(Post::class)->make(['collection_id' => $collection->id]);
+
+        $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray(), $this->getJWTHeader($post->user_id));
+        $response->assertStatus(422);
     }
 
     public function testShowSuccess()

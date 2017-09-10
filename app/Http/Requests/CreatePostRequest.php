@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Post;
+use App\Rules\CollectionAccess;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreatePostRequest extends FormRequest
@@ -27,6 +28,7 @@ class CreatePostRequest extends FormRequest
         return [
             'user_id' => 'exists:users,id',
             'category_id' => 'exists:categories,id',
+            'collection_id' => ['exists:collections,id', new CollectionAccess()],
             'title' => 'required|max:150',
             'text' => 'required',
         ];

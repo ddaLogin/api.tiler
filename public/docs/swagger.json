@@ -206,6 +206,13 @@
                         "description": "Post's category id",
                         "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "collection_id",
+                        "in": "query",
+                        "description": "Post's collection id",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
