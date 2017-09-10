@@ -72,7 +72,7 @@
                 "tags": [
                     "Posts"
                 ],
-                "summary": "Post detail",
+                "summary": "Get posts by user",
                 "produces": [
                     "application/json"
                 ],
@@ -157,6 +157,44 @@
                 ]
             }
         },
+        "/auth": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Authorization",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success authorization"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
         "/users": {
             "post": {
                 "tags": [
@@ -213,44 +251,6 @@
                 "responses": {
                     "201": {
                         "description": "Success create new user"
-                    },
-                    "422": {
-                        "description": "Validation errors"
-                    }
-                }
-            }
-        },
-        "/auth": {
-            "post": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Authorization",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "User email",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "User password",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success authorization"
-                    },
-                    "401": {
-                        "description": "Invalid credentials"
                     },
                     "422": {
                         "description": "Validation errors"

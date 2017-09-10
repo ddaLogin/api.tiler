@@ -66,7 +66,7 @@ class PostController extends ApiController
     /**
      * @SWG\Get(
      *   path="/users/{user_id}/posts",
-     *   summary="Post detail",
+     *   summary="Get posts by user",
      *   tags={"Posts"},
      *   produces={"application/json"},
      *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),

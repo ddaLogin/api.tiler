@@ -32,34 +32,9 @@ class UserController extends ApiController
 
     /**
      * @SWG\Post(
-     *   path="/users",
-     *   summary="Registration new user",
-     *   tags={"Users"},
-     *   produces={"application/json"},
-     *   @SWG\Parameter( name="name", description="User first name", required=true, type="string", in="query"),
-     *   @SWG\Parameter( name="surname", description="User last name", required=false, type="string", in="query"),
-     *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
-     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="base64", in="query"),
-     *   @SWG\Parameter( name="password", description="User password", required=true, type="string", in="query"),
-     *   @SWG\Parameter( name="password_confirmation", description="User confirmation password", required=true, type="string", in="query"),
-     *   @SWG\Response( response=201, description="Success create new user"),
-     *   @SWG\Response( response=422, description="Validation errors"),
-     * )
-     * @param CreateUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function create(CreateUserRequest $request)
-    {
-        $user = $this->userService->registration($request->all());
-
-        return response()->json($user->toArray(), 201);
-    }
-
-    /**
-     * @SWG\Post(
      *   path="/auth",
      *   summary="Authorization",
-     *   tags={"Users"},
+     *   tags={"Auth"},
      *   produces={"application/json"},
      *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="password", description="User password", required=true, type="string", in="query"),
@@ -84,6 +59,31 @@ class UserController extends ApiController
         $user = $this->userRepository->getByEmail($credentials['email']);
         $user->token = $token;
         return response()->json($user->toArray(), 200);
+    }
+
+    /**
+     * @SWG\Post(
+     *   path="/users",
+     *   summary="Registration new user",
+     *   tags={"Users"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="name", description="User first name", required=true, type="string", in="query"),
+     *   @SWG\Parameter( name="surname", description="User last name", required=false, type="string", in="query"),
+     *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
+     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="base64", in="query"),
+     *   @SWG\Parameter( name="password", description="User password", required=true, type="string", in="query"),
+     *   @SWG\Parameter( name="password_confirmation", description="User confirmation password", required=true, type="string", in="query"),
+     *   @SWG\Response( response=201, description="Success create new user"),
+     *   @SWG\Response( response=422, description="Validation errors"),
+     * )
+     * @param CreateUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(CreateUserRequest $request)
+    {
+        $user = $this->userService->registration($request->all());
+
+        return response()->json($user->toArray(), 201);
     }
 
     /**
