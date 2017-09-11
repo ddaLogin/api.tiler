@@ -33,7 +33,6 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'category_id' => function () {
             return factory(\App\Models\Category::class)->create()->id;
         },
-        'collection_id' => null,
         'title' => $faker->sentence(6),
         'text' => $faker->text(),
     ];

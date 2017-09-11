@@ -18,6 +18,7 @@ class UserControllerTest extends TestCase
         $user->password_confirmation = 'secret';
         $data = $user->toArray();
         $data['password'] = 'secret';
+        $data['terms'] = true;
 
         $response = $this->postJson(route('v1.users.create'), $data);
 
