@@ -131,8 +131,12 @@ class UserController extends ApiController
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        if (JWTAuth::parseToken()->authenticate()->id != $user->id || !Auth::validate(['email' => $user->email, 'password' => $request->get('current_password')])){
-            throw new AccessDeniedHttpException();
+        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
+            return response()->json(trans('accessDenied'), 403);
+        }
+
+        if (!Auth::validate(['email' => $user->email, 'password' => $request->get('current_password')])){
+            return response()->json(trans('wrongPassword'), 403);
         }
 
         $user = $this->userService->update($request->except('current_password'), $user->id);
