@@ -35,13 +35,12 @@ class SocialiteController extends Controller
         $user = Socialite::driver($driver)->user();
         $data = $this->$driver($user);
 
-        if (!$user = $this->userRepository->getByEmail($data['email'])){
-            $user = $this->userService->registration($data);
+        if ($user = $this->userRepository->getByEmail($data['email'])){
+            $token = JWTAuth::fromUser($user);
+            return redirect($request->session()->get('callback_url')."?token=".$token);
+        } else {
+            return redirect($request->session()->get('callback_url')."?".http_build_query($data));
         }
-
-        $token = JWTAuth::fromUser($user);
-
-        return redirect($request->session()->get('callback_url')."?token=".$token);
     }
 
     /**
