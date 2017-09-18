@@ -38,5 +38,6 @@ API for project [Tiler]() base on [Laravel 5.5](https://laravel.com/).
 * Google - `google`
 ###### Guide
 - Make redirect to url `/api/v1/auth/{key}?callback_url={your_callback_page}`
-- After all redirects and authorization in social network, browser return to your callback page with token in url parameters
-- Use it token in api authorization
+- After all redirects and authorization in social network, browser return to your callback page with parameters 
+- If exists `token` use it in auth api
+- If `token` not exists, use other params like `email`, `name` for registration
