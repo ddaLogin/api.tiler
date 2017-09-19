@@ -117,14 +117,14 @@ class UserControllerTest extends TestCase
         $this->assertDatabaseMissing('users', ['email' => $newUserData['email']]);
     }
 
-    public function testUpdateFailAccessDeniedByWrongPassword()
+    public function testUpdateFailValidateWrongPassword()
     {
         $newUserData = factory(User::class)->make()->toArray();
         $newUserData['current_password'] = 'wrong_password';
         $response = $this->putJson(route('v1.users.update', 1), $newUserData, $this->getJWTHeader());
 
 
-        $response->assertStatus(403);
+        $response->assertStatus(422);
         $this->assertDatabaseMissing('users', ['email' => $newUserData['email']]);
     }
 }
