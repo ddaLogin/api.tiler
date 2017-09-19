@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
+use App\Rules\CurrentPassword;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'surname' => 'min:3|max:20',
             'email' => ['email', Rule::unique('users')->ignore($this->user->id)],
             'password' => 'confirmed',
-            'current_password' => 'required',
+            'current_password' => ['required', new CurrentPassword()],
         ];
     }
 }
