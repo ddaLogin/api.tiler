@@ -27,6 +27,7 @@ API for project [Tiler]() base on [Laravel 5.5](https://laravel.com/).
 - Save `token` from api response
 - Attach your `token` to all next requests in `Authorization` header
 - Example - `Authorization: Bearer your_token_here`
+- Attention, `token` is single-time. All authorization api, where token is required, response to you new token in `Authorization` response header.
 
 #### Swagger Authorization
 - Make auth request
