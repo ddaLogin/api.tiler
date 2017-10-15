@@ -3,14 +3,13 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\JWTAuthTrait;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 use App\Models\User;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use JWTAuthTrait;
 
     public function testCreateSuccess()
     {
@@ -57,25 +56,26 @@ class UserControllerTest extends TestCase
         $response->assertJsonFragment($data);
     }
 
-    public function testAuthSuccess()
-    {
-        $response = $this->postJson(route('v1.auth'), ['email' => 'admin@gmail.com', 'password' => 'admin']);
-
-        $response->assertStatus(200);
-        $response->assertJsonStructure(['id', 'name', 'surname', 'email', 'created_at', 'updated_at', 'token']);
-    }
-
-    public function testAuthFail()
-    {
-        $response = $this->postJson(route('v1.auth'), ['email' => 'fake_email', 'password' => 'fake_password']);
-
-        $response->assertStatus(401);
-        $response->assertJson(['error' => trans('auth.failed')]);
-    }
+//    public function testAuthSuccess()
+//    {
+//        $response = $this->postJson(route('v1.auth'), ['email' => 'admin@gmail.com', 'password' => 'admin']);
+//
+//        $response->assertStatus(200);
+//        $response->assertJsonStructure(['id', 'name', 'surname', 'email', 'created_at', 'updated_at', 'token']);
+//    }
+//
+//    public function testAuthFail()
+//    {
+//        $response = $this->postJson(route('v1.auth'), ['email' => 'fake_email', 'password' => 'fake_password']);
+//
+//        $response->assertStatus(401);
+//        $response->assertJson(['error' => trans('auth.failed')]);
+//    }
 
     public function testShowSuccess()
     {
-        $response = $this->get(route('v1.users.show', 1), $this->getJWTHeader());
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->get(route('v1.users.show', 1));
 
         $response->assertStatus(200);
         $response->assertJsonStructure(['name', 'surname', 'email', 'created_at', 'updated_at']);
@@ -87,7 +87,9 @@ class UserControllerTest extends TestCase
         $newUserData['password'] = 'secret';
         $newUserData['password_confirmation'] = 'secret';
         $newUserData['current_password'] = 'admin';
-        $response = $this->putJson(route('v1.users.update', 1), $newUserData, $this->getJWTHeader());
+
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->putJson(route('v1.users.update', 1), $newUserData);
 
         $data = [
             'name' => $newUserData['name'],
@@ -97,11 +99,6 @@ class UserControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonFragment($data);
         $this->assertDatabaseHas('users', $data);
-
-        $response = $this->postJson(route('v1.auth'), ['email' => $newUserData['email'], 'password' => 'secret']);
-
-        $response->assertStatus(200);
-        $response->assertJsonStructure(['id', 'name', 'surname', 'email', 'created_at', 'updated_at', 'token']);
     }
 
     public function testUpdateFailAccessDeniedByUserId()
@@ -110,7 +107,9 @@ class UserControllerTest extends TestCase
 
         $newUserData = factory(User::class)->make()->toArray();
         $newUserData['current_password'] = 'admin';
-        $response = $this->putJson(route('v1.users.update', $otherUser->id), $newUserData, $this->getJWTHeader());
+
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->putJson(route('v1.users.update', $otherUser->id), $newUserData);
 
 
         $response->assertStatus(403);
@@ -121,7 +120,9 @@ class UserControllerTest extends TestCase
     {
         $newUserData = factory(User::class)->make()->toArray();
         $newUserData['current_password'] = 'wrong_password';
-        $response = $this->putJson(route('v1.users.update', 1), $newUserData, $this->getJWTHeader());
+
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->putJson(route('v1.users.update', 1), $newUserData);
 
 
         $response->assertStatus(422);

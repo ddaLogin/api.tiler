@@ -13,12 +13,14 @@ class AddAdminUser extends Migration
      */
     public function up()
     {
-        factory(\App\Models\User::class, 1)->create([
+        $admin = factory(\App\Models\User::class, 1)->create([
             'name' => 'Admin',
             'surname' => null,
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
         ]);
+
+        (new \Laravel\Passport\ClientRepository())->createPasswordGrantClient($admin->first()->id, config('app.name'), '');
     }
 
     /**

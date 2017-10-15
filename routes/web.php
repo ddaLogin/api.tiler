@@ -11,15 +11,5 @@
 |
 */
 
-$loader = function ($routeFolder){
-    $directoryIterator = new DirectoryIterator($routeFolder);
-    foreach ($directoryIterator as $directory) {
-        if ($directory->isFile()) {
-            require $routeFolder . $directory->getFilename();
-        }
-    }
-};
-
-Route::prefix('/api/v1')->name('v1.')->group(function () use($loader) {
-    $loader(__DIR__ . '/v1/');
-});
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Auth::routes();

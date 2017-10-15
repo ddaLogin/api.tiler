@@ -13,7 +13,8 @@ API for project [Tiler](https://github.com/DAMAGEx1/tiler) base on [Laravel 5.5]
 - [Install](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies) php dependencies `composer install`
 - Create databases, default names is `tiler` - required, `tiler_test` - for using tests
 - [Run migration](https://laravel.com/docs/5.4/migrations#running-migrations) `php artisan migrate`
-- Create symbolic link to upload images `php artisan storage:link`
+- [Install](https://docs.npmjs.com/cli/install) js/css dependencies  `npm install`
+- [Run script](https://docs.npmjs.com/cli/run-script) `npm run production` or `npm run dev`
 - Read [API docs](api.tiler/docs) `api.tiler/docs/index.html`
 
 ## Default data

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
 
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\CreatePostRequest;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends ApiController
 {
@@ -106,7 +107,7 @@ class PostController extends ApiController
      */
     public function create(CreatePostRequest $request, User $user)
     {
-        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
+        if (Auth::id() != $user->id){
             throw new AccessDeniedHttpException();
         }
 

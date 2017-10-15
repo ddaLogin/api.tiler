@@ -11,8 +11,6 @@ namespace App\Services;
 
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 class PostService
 {

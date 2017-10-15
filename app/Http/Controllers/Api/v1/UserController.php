@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\AuthUserRequest;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends ApiController
 {
@@ -28,37 +24,6 @@ class UserController extends ApiController
     {
         $this->userService = $userService;
         $this->userRepository = $userRepository;
-    }
-
-    /**
-     * @SWG\Post(
-     *   path="/auth",
-     *   summary="Authorization",
-     *   tags={"Auth"},
-     *   produces={"application/json"},
-     *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
-     *   @SWG\Parameter( name="password", description="User password", required=true, type="string", in="query"),
-     *   @SWG\Response( response=200, description="Success authorization"),
-     *   @SWG\Response( response=401, description="Invalid credentials"),
-     *   @SWG\Response( response=422, description="Validation errors"),
-     * )
-     * @param AuthUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function auth(AuthUserRequest $request)
-    {
-        $credentials = $request->only('email', 'password');
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => trans('auth.failed')], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => trans('auth.jwt.failed')], 500);
-        }
-
-        $user = $this->userRepository->getByEmail($credentials['email']);
-        $user->token = $token;
-        return response()->json($user->toArray(), 200);
     }
 
     /**
@@ -131,7 +96,7 @@ class UserController extends ApiController
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
+        if (Auth::id() != $user->id){
             return response()->json(trans('app.accessDenied'), 403);
         }
 

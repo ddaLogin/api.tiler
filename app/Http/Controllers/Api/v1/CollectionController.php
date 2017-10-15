@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\CreateCollectionRequest;
 use App\Interfaces\CollectionRepositoryInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
-class CollectionController extends Controller
+class CollectionController extends ApiController
 {
     private $collectionRepository;
 
@@ -41,7 +42,7 @@ class CollectionController extends Controller
      */
     public function create(CreateCollectionRequest $createCollectionRequest, User $user)
     {
-        if (JWTAuth::parseToken()->authenticate()->id != $user->id){
+        if (Auth::id() != $user->id){
             throw new AccessDeniedHttpException();
         }
 

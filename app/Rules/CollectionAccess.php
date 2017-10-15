@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Interfaces\CollectionRepositoryInterface;
 use App\Repositories\MySQLCollectionRepository;
 use Illuminate\Contracts\Validation\Rule;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class CollectionAccess implements Rule
 {
@@ -20,7 +20,7 @@ class CollectionAccess implements Rule
     {
         //TODO make repository from DI
         $collection = (new MySQLCollectionRepository())->getById($value);
-        return JWTAuth::parseToken()->authenticate()->id == $collection->user_id;
+        return Auth::id() == $collection->user_id;
     }
 
     /**

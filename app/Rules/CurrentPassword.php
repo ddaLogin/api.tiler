@@ -2,9 +2,12 @@
 
 namespace App\Rules;
 
+use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CurrentPassword implements Rule
 {
@@ -27,8 +30,8 @@ class CurrentPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        $email = JWTAuth::parseToken()->authenticate()->email;
-        return Auth::validate(['email' => $email, 'password' => $value]);
+        $password = Auth::user()->getAuthPassword();
+        return Hash::check($value, $password);
     }
 
     /**

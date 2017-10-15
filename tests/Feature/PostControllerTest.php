@@ -6,13 +6,12 @@ use App\Models\Collection;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\JWTAuthTrait;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use JWTAuthTrait;
 
     public function testIndexSuccess()
     {
@@ -28,7 +27,8 @@ class PostControllerTest extends TestCase
     {
         $post = factory(Post::class)->make();
 
-        $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray(), $this->getJWTHeader($post->user_id));
+        Passport::actingAs(User::findorfail($post->user_id));
+        $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray());
 
         $response->assertStatus(201);
         $response->assertJsonFragment($post->toArray());
@@ -36,7 +36,8 @@ class PostControllerTest extends TestCase
 
     public function testCreateFailValidation()
     {
-        $response = $this->postJson(route('v1.posts.create', 1), [], $this->getJWTHeader());
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->postJson(route('v1.posts.create', 1));
 
         $data = [
             'title' => [trans('validation.required', ['attribute' => 'title'])],
@@ -51,7 +52,8 @@ class PostControllerTest extends TestCase
         $fakeUser = factory(User::class)->create();
         $post = factory(Post::class)->make();
 
-        $response = $this->postJson(route('v1.posts.create', $fakeUser->id), $post->toArray(), $this->getJWTHeader());
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->postJson(route('v1.posts.create', $fakeUser->id), $post->toArray());
 
         $response->assertStatus(403);
     }
@@ -61,7 +63,8 @@ class PostControllerTest extends TestCase
         $collection = factory(Collection::class)->create();
         $post = factory(Post::class)->make(['collection_id' => $collection->id]);
 
-        $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray(), $this->getJWTHeader($post->user_id));
+        Passport::actingAs(User::findorfail($post->user_id));
+        $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray());
         $response->assertStatus(422);
     }
 

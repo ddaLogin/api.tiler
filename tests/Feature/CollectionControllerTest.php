@@ -3,20 +3,21 @@
 namespace Tests\Feature;
 
 use App\Models\Collection;
-use Tests\JWTAuthTrait;
+use App\Models\User;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CollectionControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use JWTAuthTrait;
 
     public function testCreateSuccess()
     {
         $collection = factory(Collection::class)->make();
 
-        $response = $this->postJson(route('v1.collections.create', $collection->user_id), $collection->toArray(), $this->getJWTHeader($collection->user_id));
+        Passport::actingAs(User::findorfail($collection->user_id));
+        $response = $this->postJson(route('v1.collections.create', $collection->user_id), $collection->toArray());
 
         $response->assertStatus(201);
         $response->assertJsonFragment($collection->toArray());
@@ -27,14 +28,16 @@ class CollectionControllerTest extends TestCase
     {
         $collection = factory(Collection::class)->make();
 
-        $response = $this->postJson(route('v1.collections.create', $collection->user_id), $collection->toArray(), $this->getJWTHeader());
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->postJson(route('v1.collections.create', $collection->user_id), $collection->toArray());
 
         $response->assertStatus(403);
     }
 
     public function testCreateFailValidation()
     {
-        $response = $this->postJson(route('v1.collections.create', 1), [], $this->getJWTHeader());
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->postJson(route('v1.collections.create', 1));
 
         $data = [
             'name' => [trans('validation.required', ['attribute' => 'name'])],

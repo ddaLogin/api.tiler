@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+$loader = function ($routeFolder){
+    $directoryIterator = new DirectoryIterator($routeFolder);
+    foreach ($directoryIterator as $directory) {
+        if ($directory->isFile()) {
+            require $routeFolder . $directory->getFilename();
+        }
+    }
+};
+
+Route::namespace('Api\v1')->prefix('/v1')->name('v1.')->group(function () use($loader) {
+    $loader(__DIR__ . '/v1/');
+});
