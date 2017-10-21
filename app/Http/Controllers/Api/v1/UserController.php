@@ -9,6 +9,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends ApiController
 {
@@ -50,6 +51,23 @@ class UserController extends ApiController
         $user = $this->userService->registration($request->all());
 
         return response()->json($user->toArray(), 201);
+    }
+
+    /**
+     * @SWG\Get(
+     *   path="/users",
+     *   summary="All users",
+     *   tags={"Users"},
+     *   produces={"application/json"},
+     *   @SWG\Response( response=200, description="Success get all users"),
+     * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $users = $this->userRepository->all();
+        return response()->json($users->toArray(), 200);
     }
 
     /**

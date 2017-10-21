@@ -55,7 +55,7 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\Collection::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->word,
+        'name' => $faker->text(10),
         'user_id' => function () {
             return factory(\App\Models\User::class)->create()->id;
         },

@@ -65,10 +65,11 @@ class MySQLUserRepositoryInterface implements UserRepositoryInterface
     /**
      * return all users
      *
+     * @param array $with
      * @return Collection
      */
-    public function all()
+    public function all($with = [])
     {
-        return User::all();
+        return User::with($with)->get();
     }
 }

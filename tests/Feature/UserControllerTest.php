@@ -112,4 +112,13 @@ class UserControllerTest extends TestCase
         $response->assertStatus(422);
         $this->assertDatabaseMissing('users', ['email' => $newUserData['email']]);
     }
+
+    public function testIndexSuccess()
+    {
+        factory(User::class, 3)->create();
+
+        $response = $this->get(route('v1.users.index'));
+
+        $response->assertStatus(200);
+    }
 }
