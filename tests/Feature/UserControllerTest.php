@@ -56,22 +56,6 @@ class UserControllerTest extends TestCase
         $response->assertJsonFragment($data);
     }
 
-//    public function testAuthSuccess()
-//    {
-//        $response = $this->postJson(route('v1.auth'), ['email' => 'admin@gmail.com', 'password' => 'admin']);
-//
-//        $response->assertStatus(200);
-//        $response->assertJsonStructure(['id', 'name', 'surname', 'email', 'created_at', 'updated_at', 'token']);
-//    }
-//
-//    public function testAuthFail()
-//    {
-//        $response = $this->postJson(route('v1.auth'), ['email' => 'fake_email', 'password' => 'fake_password']);
-//
-//        $response->assertStatus(401);
-//        $response->assertJson(['error' => trans('auth.failed')]);
-//    }
-
     public function testShowSuccess()
     {
         Passport::actingAs(User::findorfail(1));
