@@ -18,6 +18,11 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->firstName,
         'surname' => $faker->lastName,
+        'avatar' => function() use($faker) {
+            $url = $faker->imageUrl(300, 300);
+            $image = file_get_contents($url);
+            return base64_encode($image);
+        },
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
@@ -32,6 +37,11 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         },
         'category_id' => function () {
             return factory(\App\Models\Category::class)->create()->id;
+        },
+        'preview' => function() use($faker) {
+            $url = $faker->imageUrl();
+            $image = file_get_contents($url);
+            return base64_encode($image);
         },
         'title' => $faker->sentence(6),
         'text' => $faker->text(),
