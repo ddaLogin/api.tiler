@@ -27,8 +27,8 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'user_id' => 'exists:users,id',
-            'category_id' => 'exists:categories,id',
-            'collection_id' => ['exists:collections,id', new CollectionAccess()],
+            'categories.*' => 'exists:categories,id',
+            'collections.*' => ['exists:collections,id', new CollectionAccess()],
             'title' => 'required|max:150',
             'text' => 'required',
         ];

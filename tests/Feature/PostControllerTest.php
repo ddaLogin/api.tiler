@@ -61,7 +61,7 @@ class PostControllerTest extends TestCase
     public function testCreateFailToAlienCollection()
     {
         $collection = factory(Collection::class)->create();
-        $post = factory(Post::class)->make(['collection_id' => $collection->id]);
+        $post = factory(Post::class)->make(['collections' => [$collection->id]]);
 
         Passport::actingAs(User::findorfail($post->user_id));
         $response = $this->postJson(route('v1.posts.create', $post->user_id), $post->toArray());
@@ -81,10 +81,6 @@ class PostControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $posts = factory(Post::class, 3)->create(['user_id' => $user->id, 'preview' => null]);
-
-        foreach ($posts as $post){
-            $post->collection_id = null;
-        }
 
         $response = $this->get(route('v1.posts.byUser', $user->id));
         $response->assertStatus(200);

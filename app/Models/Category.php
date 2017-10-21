@@ -14,4 +14,13 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * return all category's posts
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'categories_posts');
+    }
 }

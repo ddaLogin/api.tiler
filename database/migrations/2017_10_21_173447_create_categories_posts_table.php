@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCategoryColToPosts extends Migration
+class CreateCategoriesPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddCategoryColToPosts extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->integer('category_id')->after('user_id')->unsigned()->index()->nullable()->default(null);
+        Schema::create('categories_posts', function (Blueprint $table) {
+            $table->integer('post_id')->unsigned()->index();
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+
+            $table->integer('category_id')->unsigned()->index();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
@@ -26,10 +29,6 @@ class AddCategoryColToPosts extends Migration
      */
     public function down()
     {
-        Schema::table('posts',function(Blueprint $table){
-            $table->dropForeign('posts_category_id_foreign');
-            $table->dropIndex('posts_category_id_index');
-            $table->dropColumn('category_id');
-        });
+        Schema::dropIfExists('categories_posts');
     }
 }

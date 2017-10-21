@@ -13,6 +13,24 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'category_id', 'collection_id', 'title', 'text', 'preview',
+        'user_id', 'title', 'text', 'preview',
     ];
+
+    /**
+     * return all post's categories
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_posts');
+    }
+
+    /**
+     * return all post's collections
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class, 'collections_posts');
+    }
 }

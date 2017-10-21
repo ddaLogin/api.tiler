@@ -14,4 +14,13 @@ class Collection extends Model
     protected $fillable = [
         'name', 'user_id',
     ];
+
+    /**
+     * return all collection's posts
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'collections_posts');
+    }
 }

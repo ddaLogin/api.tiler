@@ -42,6 +42,15 @@ class MySQLPostRepository implements PostRepositoryInterface
         $post->fill($data);
 
         if($post->save()){
+
+            if(key_exists('collections', $data)){
+                $post->collections()->sync($data['collections']);
+            }
+
+            if(key_exists('categories', $data)){
+                $post->categories()->sync($data['categories']);
+            }
+
             return $post;
         }
 

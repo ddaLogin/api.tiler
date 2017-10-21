@@ -35,9 +35,6 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(\App\Models\User::class)->create()->id;
         },
-        'category_id' => function () {
-            return factory(\App\Models\Category::class)->create()->id;
-        },
         'preview' => function() use($faker) {
             $url = $faker->imageUrl();
             $image = file_get_contents($url);
@@ -58,7 +55,7 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\Collection::class, function (Faker\Generator $faker) {
     return [
-        'name' => 'test name',
+        'name' => $faker->word,
         'user_id' => function () {
             return factory(\App\Models\User::class)->create()->id;
         },
