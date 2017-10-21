@@ -20,11 +20,12 @@ class MySQLPostRepository implements PostRepositoryInterface
      * return post by id
      *
      * @param int $id
+     * @param array $with
      * @return Post
      */
-    public function getById(int $id)
+    public function getById(int $id, $with = [])
     {
-        return Post::findorfail($id);
+        return Post::findorfail($id)->with($with);
     }
 
     /**
@@ -60,21 +61,23 @@ class MySQLPostRepository implements PostRepositoryInterface
     /**
      * return all posts
      *
+     * @param array $with
      * @return Collection
      */
-    public function all()
+    public function all($with = [])
     {
-        return Post::all();
+        return Post::with($with)->get();
     }
 
     /**
      * return all posts by user id
      *
      * @param $user_id
+     * @param array $with
      * @return Collection
      */
-    public function getByUserId($user_id)
+    public function getByUserId($user_id, $with = [])
     {
-        return Post::where('user_id', $user_id)->get();
+        return Post::where('user_id', $user_id)->with($with)->get();
     }
 }

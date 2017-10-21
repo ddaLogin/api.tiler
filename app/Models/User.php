@@ -29,4 +29,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * return all user's posts
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * return all user's collections
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
+    }
 }

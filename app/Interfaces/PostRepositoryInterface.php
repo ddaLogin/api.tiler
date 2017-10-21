@@ -18,9 +18,10 @@ interface PostRepositoryInterface
      * return post by id
      *
      * @param int $id
+     * @param array $with
      * @return Post
      */
-    public function getById(int $id);
+    public function getById(int $id, $with = []);
 
     /**
      * store|update post
@@ -34,15 +35,17 @@ interface PostRepositoryInterface
     /**
      * return all posts
      *
+     * @param array $with
      * @return Collection
      */
-    public function all();
+    public function all($with = []);
 
     /**
      * return all posts by user id
      *
      * @param $user_id
+     * @param array $with
      * @return Collection
      */
-    public function getByUserId($user_id);
+    public function getByUserId($user_id, $with = []);
 }

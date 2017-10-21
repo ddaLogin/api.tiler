@@ -66,6 +66,7 @@ class UserController extends ApiController
      */
     public function show(User $user)
     {
+        $user->loadMissing(['posts.categories:id', 'posts.collections:id', 'collections']);
         return response()->json($user->toArray(), 200);
     }
 

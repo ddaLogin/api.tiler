@@ -42,7 +42,7 @@ class PostController extends ApiController
      */
     public function index(Request $request)
     {
-        $posts = $this->postRepository->all();
+        $posts = $this->postRepository->all(['user', 'collections', 'categories:id']);
 
         return response()->json($posts, 200);
     }
@@ -61,6 +61,7 @@ class PostController extends ApiController
      */
     public function show(Post $post)
     {
+        $post->loadMissing(['user', 'categories:id', 'collections']);
         return response()->json($post->toArray(), 200);
     }
 
@@ -78,7 +79,7 @@ class PostController extends ApiController
      */
     public function byUser(User $user)
     {
-        $posts = $this->postRepository->getByUserId($user->id);
+        $posts = $this->postRepository->getByUserId($user->id, ['collections', 'categories:id']);
 
         return response()->json($posts->toArray(), 200);
     }

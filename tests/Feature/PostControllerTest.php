@@ -81,6 +81,10 @@ class PostControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $posts = factory(Post::class, 3)->create(['user_id' => $user->id, 'preview' => null]);
+        foreach ($posts as $post){
+            $post->collections = [];
+            $post->categories = [];
+        }
 
         $response = $this->get(route('v1.posts.byUser', $user->id));
         $response->assertStatus(200);
