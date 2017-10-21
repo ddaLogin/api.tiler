@@ -34,7 +34,7 @@ class CollectionController extends ApiController
      *   @SWG\Response( response=201, description="Success create new collection"),
      *   @SWG\Response( response=403, description="Access denied"),
      *   @SWG\Response( response=422, description="Validation errors"),
-     *   security={{"jwt_auth":{}}},
+     *   security={{"passport":{}}},
      * )
      * @param CreateCollectionRequest $createCollectionRequest
      * @param User $user

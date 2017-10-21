@@ -35,7 +35,7 @@ class UserController extends ApiController
      *   @SWG\Parameter( name="name", description="User first name", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="surname", description="User last name", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="email", description="User email", required=true, type="string", in="query"),
-     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="base64", in="query"),
+     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="password", description="User password", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="password_confirmation", description="User confirmation password", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="terms", description="check terms of use", required=true, type="boolean", in="query"),
@@ -79,7 +79,7 @@ class UserController extends ApiController
      *   @SWG\Parameter( name="name", description="User first name", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="surname", description="User last name", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="email", description="User email", required=false, type="string", in="query"),
-     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="base64", in="query"),
+     *   @SWG\Parameter( name="avatar", description="User avatar in base64 encode", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="password", description="New user password", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="password_confirmation", description="Confirmation new user password", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="current_password", description="Current user password", required=true, type="string", in="query"),
@@ -88,7 +88,7 @@ class UserController extends ApiController
      *   @SWG\Response( response=401, description="Unauthenticated"),
      *   @SWG\Response( response=403, description="Access denied"),
      *   @SWG\Response( response=422, description="Validation errors"),
-     *   security={{"jwt_auth":{}}}
+     *   security={{"passport":{}}}
      * )
      * @param UpdateUserRequest $request
      * @param User $user
