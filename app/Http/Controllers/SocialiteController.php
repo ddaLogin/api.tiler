@@ -1,27 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Interfaces\UserRepositoryInterface;
-use App\Services\UserService;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
     private $userRepository;
-    private $userService;
 
     /**
      * SocialiteController constructor.
      * @param UserRepositoryInterface $userRepository
-     * @param UserService $userService
      */
-    public function __construct(UserRepositoryInterface $userRepository, UserService $userService)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->userService = $userService;
     }
 
     public function redirect(Request $request, string $driver)
@@ -33,10 +28,12 @@ class SocialiteController extends Controller
     public function callback(Request $request, string $driver)
     {
         $user = Socialite::driver($driver)->user();
+
+        //call parse function
         $data = $this->$driver($user);
 
         if ($user = $this->userRepository->getByEmail($data['email'])){
-            $token = JWTAuth::fromUser($user);
+            $token = $user->createToken('Socialite')->accessToken;
             return redirect($request->session()->get('callback_url')."?token=".$token);
         } else {
             return redirect($request->session()->get('callback_url')."?".http_build_query($data));
@@ -44,7 +41,7 @@ class SocialiteController extends Controller
     }
 
     /**
-     * parse google redirect and return user data
+     * parse google user data
      *
      * @param $googleUser
      * @return mixed

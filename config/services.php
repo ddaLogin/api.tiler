@@ -38,6 +38,6 @@ return [
     'google' => [
         'client_id' => '242217793940-lo0mdeu6eeqj001320nmv1ih26och3jm.apps.googleusercontent.com',
         'client_secret' => 'Mfv1Tu700jKJ57du5PUc8fhE',
-        'redirect' => 'http://api.tiler.com/api/v1/auth/google/callback',
+        'redirect' => 'http://api.tiler.com/socialite/google/callback',
     ],
 ];

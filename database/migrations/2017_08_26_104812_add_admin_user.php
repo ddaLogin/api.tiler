@@ -21,6 +21,7 @@ class AddAdminUser extends Migration
         ]);
 
         (new \Laravel\Passport\ClientRepository())->createPasswordGrantClient($admin->first()->id, config('app.name'), '');
+        (new \Laravel\Passport\ClientRepository())->createPersonalAccessClient($admin->first()->id, 'Socialite', '');
     }
 
     /**
