@@ -21,7 +21,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'avatar' => function() use($faker) {
             $url = $faker->imageUrl(300, 300);
             $image = file_get_contents($url);
-            return base64_encode($image);
+            return "data:image/jpg;base64,".base64_encode($image);
         },
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
@@ -38,7 +38,7 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'preview' => function() use($faker) {
             $url = $faker->imageUrl();
             $image = file_get_contents($url);
-            return base64_encode($image);
+            return "data:image/jpg;base64,".base64_encode($image);
         },
         'title' => $faker->sentence(6),
         'text' => $faker->text(),
