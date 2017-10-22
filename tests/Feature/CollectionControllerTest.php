@@ -54,4 +54,32 @@ class CollectionControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonFragment([$collections->toArray()]);
     }
+
+    public function testUpdateSuccess()
+    {
+        $collection = factory(Collection::class)->create();
+        $this->assertDatabaseHas('collections', $collection->toArray());
+
+        $collection->name = 'Name after update';
+        Passport::actingAs(User::findorfail($collection->user_id));
+        $response = $this->putJson(route('v1.collections.update', [$collection->user_id, $collection->id]), $collection->toArray());
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment($collection->toArray());
+        $this->assertDatabaseHas('collections', $collection->toArray());
+    }
+
+    public function testUpdateAlienAndFail()
+    {
+        $secondUser = factory(User::class)->create();
+        $alienCollection = factory(Collection::class)->create(['user_id' => $secondUser->id]);
+        $this->assertDatabaseHas('collections', $alienCollection->toArray());
+
+        $alienCollection->name = 'Name after update';
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->putJson(route('v1.collections.update', [$alienCollection->user_id, $alienCollection->id]), $alienCollection->toArray());
+
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('collections', $alienCollection->toArray());
+    }
 }
