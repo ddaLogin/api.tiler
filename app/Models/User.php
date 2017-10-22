@@ -47,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Collection::class);
     }
+
+    /**
+     * return users' likes
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

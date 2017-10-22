@@ -61,3 +61,16 @@ $factory->define(App\Models\Collection::class, function (Faker\Generator $faker)
         },
     ];
 });
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Like::class, function (Faker\Generator $faker) {
+    return [
+        'status' => $faker->boolean(),
+        'user_id' => function () {
+            return factory(\App\Models\User::class)->create()->id;
+        },
+        'post_id' => function () {
+            return factory(\App\Models\Post::class)->create()->id;
+        },
+    ];
+});
