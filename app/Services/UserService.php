@@ -10,7 +10,9 @@ namespace App\Services;
 
 
 use App\Interfaces\UserRepositoryInterface;
+use App\Mail\UserRegistrationMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class UserService
 {
@@ -33,7 +35,11 @@ class UserService
      */
     public function registration(array $data):User
     {
-        return $this->userRepository->store($data);
+        $user = $this->userRepository->store($data);
+        if ($user){
+            Mail::to($user->email)->send(new UserRegistrationMail($user));
+        }
+        return $user;
     }
 
     /**

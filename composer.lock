@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f27cbddaa9051e35179332252bea979",
+    "content-hash": "6d37da8129c650fb9f2e3fd1f457b038",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -1889,7 +1889,7 @@
             ],
             "authors": [
                 {
-                    "name": "Luís Otávio Cobucci Oblonczyk",
+                    "name": "Lu??s Ot??vio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
                     "role": "Developer"
                 }
@@ -2498,7 +2498,7 @@
                     "role": "Developer"
                 },
                 {
-                    "name": "Hans-Jürgen Petrich",
+                    "name": "Hans-J??rgen Petrich",
                     "email": "petrich@tronic-media.com",
                     "role": "Developer"
                 },
@@ -3331,7 +3331,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jean-François Simon",
+                    "name": "Jean-Fran??ois Simon",
                     "email": "jeanfrancois.simon@sensiolabs.com"
                 },
                 {
@@ -4762,7 +4762,7 @@
             ],
             "authors": [
                 {
-                    "name": "François Zaninotto"
+                    "name": "Fran??ois Zaninotto"
                 }
             ],
             "description": "Faker is a PHP library that generates fake data for you.",
@@ -4857,7 +4857,7 @@
             ],
             "authors": [
                 {
-                    "name": "Pádraic Brady",
+                    "name": "P??draic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
