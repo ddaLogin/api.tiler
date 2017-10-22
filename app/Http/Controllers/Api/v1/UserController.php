@@ -84,7 +84,18 @@ class UserController extends ApiController
      */
     public function show(User $user)
     {
-        $user->loadMissing(['posts.categories:id', 'posts.collections:id', 'collections']);
+        $user->loadMissing([
+            'posts.categories:id',
+            'posts.collections:id',
+            'posts.likes.user',
+            'collections',
+            'likes.post.categories:id',
+            'likes.post.collections',
+            'likes.post.user',
+            'dislikes.post.categories:id',
+            'dislikes.post.collections',
+            'dislikes.post.user',
+        ]);
         return response()->json($user->toArray(), 200);
     }
 

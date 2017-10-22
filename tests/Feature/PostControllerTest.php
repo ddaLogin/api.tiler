@@ -84,6 +84,8 @@ class PostControllerTest extends TestCase
         foreach ($posts as $post){
             $post->collections = [];
             $post->categories = [];
+            $post->likes = [];
+            $post->dislikes = [];
         }
 
         $response = $this->get(route('v1.posts.byUser', $user->id));

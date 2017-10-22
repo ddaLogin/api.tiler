@@ -29,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Interfaces\PostRepositoryInterface::class, Repositories\MySQLPostRepository::class);
         $this->app->bind(Interfaces\CategoryRepositoryInterface::class, Repositories\MySQLCategoryRepository::class);
         $this->app->bind(Interfaces\CollectionRepositoryInterface::class, Repositories\MySQLCollectionRepository::class);
+        $this->app->bind(Interfaces\LikeRepositoryInterface::class, Repositories\MySQLLikeRepository::class);
     }
 }

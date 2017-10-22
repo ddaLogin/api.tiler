@@ -54,6 +54,15 @@ class User extends Authenticatable
      */
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class)->where('status', '=', true);
+    }
+
+    /**
+     * return users' dislikes
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function dislikes()
+    {
+        return $this->hasMany(Like::class)->where('status', '=', false);
     }
 }
