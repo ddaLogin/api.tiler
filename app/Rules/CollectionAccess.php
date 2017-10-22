@@ -18,8 +18,8 @@ class CollectionAccess implements Rule
      */
     public function passes($attribute, $value)
     {
-        //TODO make repository from DI
-        $collection = (new MySQLCollectionRepository())->getById($value);
+        $collectionRepository = resolve(CollectionRepositoryInterface::class);
+        $collection = $collectionRepository->getById($value);
         return Auth::id() == $collection->user_id;
     }
 
