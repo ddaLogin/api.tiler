@@ -21,7 +21,8 @@ class SocialiteController extends Controller
 
     public function redirect(Request $request, string $driver)
     {
-        $request->session()->flash('callback_url', $request->get('callback_url'));
+        $request->session()->flash('auth_url', $request->get('auth_url'));
+        $request->session()->flash('registration_url', $request->get('registration_url'));
         return Socialite::driver($driver)->redirect();
     }
 
@@ -34,9 +35,9 @@ class SocialiteController extends Controller
 
         if ($user = $this->userRepository->getByEmail($data['email'])){
             $token = $user->createToken('Socialite')->accessToken;
-            return redirect($request->session()->get('callback_url')."?token=".$token);
+            return redirect($request->session()->get('auth_url')."?token=".$token);
         } else {
-            return redirect($request->session()->get('callback_url')."?".http_build_query($data));
+            return redirect($request->session()->get('registration_url')."?".http_build_query($data));
         }
     }
 

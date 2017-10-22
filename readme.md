@@ -27,7 +27,7 @@ API for project [Tiler](https://github.com/DAMAGEx1/tiler) base on [Laravel 5.5]
 ###### Available social networks - keys
 * Google - `google`
 ###### Guide
-- Make redirect to url `/socialite/{key}?callback_url={your_callback_page}`
+- Make redirect to url `/socialite/{key}?auth_url={your_callback_page_for_token}&registration_url={your_callback_page_for_user_data}`
 - After all redirects and authorization in social network, browser return to your callback page with parameters 
 - If exists `token` use it in `Authorization` header
 - If `token` not exists, use other params like `email`, `name` for registration
