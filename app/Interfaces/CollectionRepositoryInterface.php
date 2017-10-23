@@ -37,4 +37,11 @@ interface CollectionRepositoryInterface
      * @return Collection
      */
     public function store(array $data, int $id = null);
+
+    /**
+     * delete collection
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id);
 }

@@ -24,6 +24,25 @@ class CollectionController extends ApiController
     }
 
     /**
+     * @SWG\Get(
+     *   path="/users/{user_id}/collections",
+     *   summary="Get user's collections",
+     *   tags={"Collections"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Success get post detail"),
+     * )
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function byUser(User $user)
+    {
+        $collections = $this->collectionRepository->byUser($user->id);
+
+        return response()->json($collections->toArray(), 200);
+    }
+
+    /**
      * @SWG\Post(
      *   path="/users/{user_id}/collections",
      *   summary="Create new collection",
@@ -55,32 +74,12 @@ class CollectionController extends ApiController
     }
 
     /**
-     * @SWG\Get(
-     *   path="/users/{user_id}/collections",
-     *   summary="Get user's collections",
-     *   tags={"Collections"},
-     *   produces={"application/json"},
-     *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
-     *   @SWG\Response( response=200, description="Success get post detail"),
-     * )
-     * @param User $user
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function byUser(User $user)
-    {
-        $collections = $this->collectionRepository->byUser($user->id);
-
-        return response()->json($collections->toArray(), 200);
-    }
-
-    /**
      * @SWG\Put(
-     *   path="/users/{user_id}/collections/{collection_id}",
+     *   path="/collections/{collection_id}",
      *   summary="Update collection",
      *   tags={"Collections"},
      *   produces={"application/json"},
      *   consumes={"multipart/form-data"},
-     *   @SWG\Parameter( name="user_id", description="Collection owner", required=true, type="string", in="path"),
      *   @SWG\Parameter( name="collection_id", description="Collection id", required=true, type="string", in="path"),
      *   @SWG\Parameter( name="name", description="New collection's name", required=true, type="string", in="query"),
      *   @SWG\Response( response=200, description="Success update collection"),
@@ -89,20 +88,43 @@ class CollectionController extends ApiController
      *   security={{"passport":{}}},
      * )
      * @param CreateCollectionRequest $createCollectionRequest
-     * @param User $user
      * @param Collection $collection
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(CreateCollectionRequest $createCollectionRequest, User $user, Collection $collection)
+    public function update(CreateCollectionRequest $createCollectionRequest, Collection $collection)
     {
-        if (Auth::id() != $user->id || $collection->user_id != $user->id){
+        if (Auth::id() != $collection->user_id){
             throw new AccessDeniedHttpException();
         }
 
         $data = $createCollectionRequest->all();
-        $data['user_id'] = $user->id;
+        $data['user_id'] = Auth::id();
         $collection = $this->collectionRepository->store($data, $collection->id);
 
         return response()->json($collection->toArray(), 200);
+    }
+
+    /**
+     * @SWG\Delete(
+     *   path="/collections/{collection_id}",
+     *   summary="Delete collection",
+     *   tags={"Collections"},
+     *   produces={"application/json"},
+     *   consumes={"multipart/form-data"},
+     *   @SWG\Parameter( name="collection_id", description="Collection id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Collection delete success"),
+     *   security={{"passport":{}}},
+     * )
+     * @param Collection $collection
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Collection $collection)
+    {
+        if (Auth::id() != $collection->user_id){
+            throw new AccessDeniedHttpException();
+        }
+        $this->collectionRepository->delete($collection->id);
+
+        return response()->json([], 200);
     }
 }

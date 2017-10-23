@@ -62,7 +62,7 @@ class CollectionControllerTest extends TestCase
 
         $collection->name = 'Name after update';
         Passport::actingAs(User::findorfail($collection->user_id));
-        $response = $this->putJson(route('v1.collections.update', [$collection->user_id, $collection->id]), $collection->toArray());
+        $response = $this->putJson(route('v1.collections.update', [$collection->id]), $collection->toArray());
 
         $response->assertStatus(200);
         $response->assertJsonFragment($collection->toArray());
@@ -77,9 +77,34 @@ class CollectionControllerTest extends TestCase
 
         $alienCollection->name = 'Name after update';
         Passport::actingAs(User::findorfail(1));
-        $response = $this->putJson(route('v1.collections.update', [$alienCollection->user_id, $alienCollection->id]), $alienCollection->toArray());
+        $response = $this->putJson(route('v1.collections.update', [$alienCollection->id]), $alienCollection->toArray());
 
         $response->assertStatus(403);
         $this->assertDatabaseMissing('collections', $alienCollection->toArray());
+    }
+
+    public function testDeleteSuccess()
+    {
+        $collection = factory(Collection::class)->create();
+        $this->assertDatabaseHas('collections', $collection->toArray());
+
+        Passport::actingAs(User::findorfail($collection->user_id));
+        $response = $this->delete(route('v1.collections.delete', [$collection->id]));
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([]);
+        $this->assertDatabaseMissing('collections', $collection->toArray());
+    }
+
+    public function testDeleteAlienAndFail()
+    {
+        $collection = factory(Collection::class)->create();
+        $this->assertDatabaseHas('collections', $collection->toArray());
+
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->delete(route('v1.collections.delete', [$collection->id]));
+
+        $response->assertStatus(403);
+        $this->assertDatabaseHas('collections', $collection->toArray());
     }
 }

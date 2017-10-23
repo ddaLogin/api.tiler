@@ -57,4 +57,14 @@ class MySQLCollectionRepository implements CollectionRepositoryInterface
 
         throw new \Exception("Couldn't store collection");
     }
+
+    /**
+     * delete collection
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        return Collection::where('id', $id)->delete();
+    }
 }
