@@ -42,7 +42,8 @@ class PostController extends ApiController
      */
     public function index(Request $request)
     {
-        $posts = $this->postRepository->all(['user', 'collections', 'categories:id', 'likes.user', 'dislikes.user']);
+        $with = $this->checkRelationsNeed(['user', 'collections', 'categories:id', 'likes.user', 'dislikes.user']);
+        $posts = $this->postRepository->all($with);
 
         return response()->json($posts, 200);
     }
@@ -61,7 +62,8 @@ class PostController extends ApiController
      */
     public function show(Post $post)
     {
-        $post->loadMissing(['user', 'categories:id', 'collections', 'likes.user', 'dislikes.user']);
+        $with = $this->checkRelationsNeed(['user', 'categories:id', 'collections', 'likes.user', 'dislikes.user']);
+        $post->loadMissing($with);
         return response()->json($post->toArray(), 200);
     }
 
@@ -79,7 +81,8 @@ class PostController extends ApiController
      */
     public function byUser(User $user)
     {
-        $posts = $this->postRepository->getByUserId($user->id, ['collections', 'categories:id', 'likes.user', 'dislikes.user']);
+        $with = $this->checkRelationsNeed(['collections', 'categories:id', 'likes.user', 'dislikes.user']);
+        $posts = $this->postRepository->getByUserId($user->id, $with);
 
         return response()->json($posts->toArray(), 200);
     }

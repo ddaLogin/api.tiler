@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
 
 /**
  * @SWG\Swagger( schemes={"http"}, host="api.tiler.com", basePath="/api/v1",
@@ -26,5 +27,10 @@ use App\Http\Controllers\Controller;
  */
 class ApiController extends Controller
 {
+    protected function checkRelationsNeed(array $relations)
+    {
+        $relationsFlag = Request::get('relations', true);
 
+        return ($relationsFlag)?$relations:[];
+    }
 }

@@ -84,7 +84,7 @@ class UserController extends ApiController
      */
     public function show(User $user)
     {
-        $user->loadMissing([
+        $with = $this->checkRelationsNeed([
             'posts.categories:id',
             'posts.collections:id',
             'posts.likes.user',
@@ -96,6 +96,7 @@ class UserController extends ApiController
             'dislikes.post.collections',
             'dislikes.post.user',
         ]);
+        $user->loadMissing($with);
         return response()->json($user->toArray(), 200);
     }
 
