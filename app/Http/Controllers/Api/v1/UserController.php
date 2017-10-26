@@ -115,6 +115,7 @@ class UserController extends ApiController
      *   @SWG\Parameter( name="password", description="New user password", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="password_confirmation", description="Confirmation new user password", required=false, type="string", in="query"),
      *   @SWG\Parameter( name="current_password", description="Current user password", required=true, type="string", in="query"),
+     *   @SWG\Parameter( name="options", description="JSON of user's options", required=false, type="string", in="query"),
      *   @SWG\Response( response=200, description="Success user update"),
      *   @SWG\Response( response=400, description="authorization token is required"),
      *   @SWG\Response( response=401, description="Unauthenticated"),

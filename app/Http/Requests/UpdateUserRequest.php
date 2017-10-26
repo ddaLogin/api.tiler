@@ -31,6 +31,7 @@ class UpdateUserRequest extends FormRequest
             'email' => ['email', Rule::unique('users')->ignore($this->user->id)],
             'password' => 'confirmed',
             'current_password' => ['required', new CurrentPassword()],
+            'options' => 'json',
         ];
     }
 }
