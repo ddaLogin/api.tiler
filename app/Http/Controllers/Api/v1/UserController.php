@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\OptionsUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
@@ -132,6 +133,29 @@ class UserController extends ApiController
         }
 
         $user = $this->userService->update($request->except('current_password'), $user->id);
+
+        return response()->json($user->toArray(), 200);
+    }
+
+    /**
+     * @SWG\Put(
+     *   path="/users/{id}/options",
+     *   summary="Update user's options",
+     *   tags={"Users"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="id", description="User id", required=true, type="string", in="path"),
+     *   @SWG\Parameter( name="options", description="JSON of user's options", required=true, type="string", in="query"),
+     *   @SWG\Response( response=200, description="Success update user's options"),
+     *   @SWG\Response( response=401, description="Unauthenticated"),
+     *   @SWG\Response( response=422, description="Validation errors"),
+     *   security={{"passport":{}}}
+     * )
+     * @param OptionsUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function options(OptionsUserRequest $request)
+    {
+        $user = $this->userService->update($request->only('options'), Auth::id());
 
         return response()->json($user->toArray(), 200);
     }

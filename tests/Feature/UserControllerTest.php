@@ -121,4 +121,16 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testOptionsSuccess()
+    {
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+
+        $user->options = json_encode(['lang' => 'en']);
+        $response = $this->putJson(route('v1.users.options', $user->id), ['options' => $user->options]);
+
+
+        $response->assertStatus(200);
+    }
 }
