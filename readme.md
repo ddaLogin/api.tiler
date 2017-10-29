@@ -31,3 +31,8 @@ API for project [Tiler](https://github.com/DAMAGEx1/tiler) base on [Laravel 5.5]
 - After all redirects and authorization in social network, browser return to your callback page with parameters 
 - If exists `token` use it in `Authorization` header
 - If `token` not exists, use other params like `email`, `name` for registration
+
+## Additional API parameters
+All params use in `GET` api, like [url parameters](https://en.wikipedia.org/wiki/Query_string#Structure)
+- `relations` - some API by default return relations, you can disable it with `relations=0` flag
+- `size` - use it flag in api with pagination to set items to per page count
