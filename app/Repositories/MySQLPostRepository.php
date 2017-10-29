@@ -23,7 +23,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      * @param array $with
      * @return Post
      */
-    public function getById(int $id, $with = [])
+    public function getById(int $id, array $with = [])
     {
         return Post::findorfail($id)->with($with);
     }
@@ -64,7 +64,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      * @param array $with
      * @return Collection
      */
-    public function all($with = [])
+    public function all(array $with = [])
     {
         return Post::with($with)->get();
     }
@@ -76,8 +76,33 @@ class MySQLPostRepository implements PostRepositoryInterface
      * @param array $with
      * @return Collection
      */
-    public function getByUserId($user_id, $with = [])
+    public function getByUserId($user_id, array $with = [])
     {
         return Post::where('user_id', $user_id)->with($with)->get();
+    }
+
+    /**
+     * return posts ordered by created date and paginate
+     *
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getOrderByCreatedAtAndPaginate($size, array $with = [])
+    {
+        return Post::orderBy('created_at', 'DESC')->with($with)->paginate($size);
+    }
+
+    /**
+     * return all posts by user id
+     *
+     * @param $user_id
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getByUserIdOrderedByCreatedAtAndPaginate($user_id, $size, array $with = [])
+    {
+        return Post::where('user_id', $user_id)->orderBy('created_at', 'DESC')->with($with)->paginate($size);
     }
 }

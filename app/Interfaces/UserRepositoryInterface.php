@@ -45,5 +45,5 @@ interface UserRepositoryInterface
      * @param array $with
      * @return Collection
      */
-    public function all($with = []);
+    public function all(array $with = []);
 }

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Resources\PostResource;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\PostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PostController extends ApiController
 {
@@ -38,14 +38,15 @@ class PostController extends ApiController
      *   @SWG\Response( response=200, description="Success"),
      * )
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return PostResource
      */
     public function index(Request $request)
     {
+        $size = $request->get('size', config('common.defaultPostCount'));
         $with = $this->checkRelationsNeed(['user', 'collections', 'categories:id', 'likes.user', 'dislikes.user']);
-        $posts = $this->postRepository->all($with);
+        $posts = $this->postRepository->getOrderByCreatedAtAndPaginate($size, $with);
 
-        return response()->json($posts, 200);
+        return new PostResource($posts->appends($request->all()));
     }
 
     /**
@@ -76,15 +77,17 @@ class PostController extends ApiController
      *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
      *   @SWG\Response( response=200, description="Success get post detail"),
      * )
+     * @param Request $request
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function byUser(User $user)
+    public function byUser(Request $request, User $user)
     {
+        $size = $request->get('size', config('common.defaultPostCount'));
         $with = $this->checkRelationsNeed(['collections', 'categories:id', 'likes.user', 'dislikes.user']);
-        $posts = $this->postRepository->getByUserId($user->id, $with);
+        $posts = $this->postRepository->getByUserIdOrderedByCreatedAtAndPaginate($user->id, $size, $with);
 
-        return response()->json($posts->toArray(), 200);
+        return new PostResource($posts->appends($request->all()));
     }
 
     /**

@@ -20,7 +20,7 @@ class PostControllerTest extends TestCase
         $response = $this->get(route('v1.posts.index'));
 
         $response->assertStatus(200);
-        $response->assertJson($posts->toArray());
+        $response->assertJsonFragment($posts->toArray());
     }
 
     public function testCreateSuccess()

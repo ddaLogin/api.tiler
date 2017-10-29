@@ -21,7 +21,7 @@ interface PostRepositoryInterface
      * @param array $with
      * @return Post
      */
-    public function getById(int $id, $with = []);
+    public function getById(int $id, array $with = []);
 
     /**
      * store|update post
@@ -38,7 +38,7 @@ interface PostRepositoryInterface
      * @param array $with
      * @return Collection
      */
-    public function all($with = []);
+    public function all(array $with = []);
 
     /**
      * return all posts by user id
@@ -47,5 +47,24 @@ interface PostRepositoryInterface
      * @param array $with
      * @return Collection
      */
-    public function getByUserId($user_id, $with = []);
+    public function getByUserId($user_id, array $with = []);
+
+    /**
+     * return posts ordered by created date and paginate
+     *
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getOrderByCreatedAtAndPaginate($size, array $with = []);
+
+    /**
+     * return all posts by user id
+     *
+     * @param $user_id
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getByUserIdOrderedByCreatedAtAndPaginate($user_id, $size, array $with = []);
 }
