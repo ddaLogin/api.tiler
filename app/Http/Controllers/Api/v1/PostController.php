@@ -112,7 +112,7 @@ class PostController extends ApiController
     public function create(CreatePostRequest $request, User $user)
     {
         if (Auth::id() != $user->id){
-            throw new AccessDeniedHttpException();
+            return response()->json(trans('app.accessDenied'), 403);
         }
 
         $data = $request->all();

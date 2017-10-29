@@ -63,7 +63,7 @@ class CollectionController extends ApiController
     public function create(CreateCollectionRequest $createCollectionRequest, User $user)
     {
         if (Auth::id() != $user->id){
-            throw new AccessDeniedHttpException();
+            return response()->json(trans('app.accessDenied'), 403);
         }
 
         $data = $createCollectionRequest->all();
@@ -94,7 +94,7 @@ class CollectionController extends ApiController
     public function update(CreateCollectionRequest $createCollectionRequest, Collection $collection)
     {
         if (Auth::id() != $collection->user_id){
-            throw new AccessDeniedHttpException();
+            return response()->json(trans('app.accessDenied'), 403);
         }
 
         $data = $createCollectionRequest->all();
@@ -121,7 +121,7 @@ class CollectionController extends ApiController
     public function delete(Collection $collection)
     {
         if (Auth::id() != $collection->user_id){
-            throw new AccessDeniedHttpException();
+            return response()->json(trans('app.accessDenied'), 403);
         }
         $this->collectionRepository->delete($collection->id);
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Post;
 use App\Rules\CollectionAccess;
 use Illuminate\Foundation\Http\FormRequest;
 
