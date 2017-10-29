@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(Interfaces\UserRepositoryInterface::class, Repositories\MySQLUserRepositoryInterface::class);
+        $this->app->bind(Interfaces\UserRepositoryInterface::class, Repositories\MySQLUserRepository::class);
         $this->app->bind(Interfaces\PostRepositoryInterface::class, Repositories\MySQLPostRepository::class);
         $this->app->bind(Interfaces\CategoryRepositoryInterface::class, Repositories\MySQLCategoryRepository::class);
         $this->app->bind(Interfaces\CollectionRepositoryInterface::class, Repositories\MySQLCollectionRepository::class);

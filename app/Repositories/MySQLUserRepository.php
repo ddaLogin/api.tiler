@@ -13,7 +13,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class MySQLUserRepositoryInterface implements UserRepositoryInterface
+class MySQLUserRepository implements UserRepositoryInterface
 {
     /**
      * return target model by id
