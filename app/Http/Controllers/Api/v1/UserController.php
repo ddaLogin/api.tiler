@@ -135,7 +135,7 @@ class UserController extends ApiController
 
         $user = $this->userService->update($request->except('current_password'), $user->id);
 
-        return response()->json($user->toArray(), 200);
+        return response()->json($user->toArray(false), 200);
     }
 
     /**
@@ -158,6 +158,6 @@ class UserController extends ApiController
     {
         $user = $this->userService->update($request->only('options'), Auth::id());
 
-        return response()->json($user->toArray(), 200);
+        return response()->json($user->toArray(false), 200);
     }
 }

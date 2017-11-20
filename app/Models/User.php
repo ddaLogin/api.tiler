@@ -6,6 +6,7 @@ use App\Extensions\ValidateTrait;
 use App\Rules\Base64;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -29,6 +30,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function toArray($cutOptions = true)
+    {
+        $attributes = $this->attributesToArray();
+
+        if ($cutOptions){
+            unset($attributes['options']);
+        }
+
+        return array_merge($attributes, $this->relationsToArray());
+    }
+
 
     /**
      * return all user's posts
