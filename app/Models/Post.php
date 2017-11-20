@@ -17,6 +17,15 @@ class Post extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'pivot'
+    ];
+
+    /**
      * return post author
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

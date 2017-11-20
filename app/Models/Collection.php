@@ -16,6 +16,15 @@ class Collection extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'pivot'
+    ];
+
+    /**
      * return all collection's posts
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

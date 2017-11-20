@@ -16,6 +16,15 @@ class Like extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'pivot'
+    ];
+
+    /**
      * return like post
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
