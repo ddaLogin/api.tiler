@@ -17,10 +17,10 @@ class PostControllerTest extends TestCase
     {
         $posts = factory(Post::class, 3)->create();
 
-        $response = $this->get(route('v1.posts.index'));
+        $response = $this->get(route('v1.posts.index').'?relations=0');
 
         $response->assertStatus(200);
-        $response->assertJsonFragment($posts->toArray());
+        $response->assertJsonFragment(['data' => $posts->toArray()]);
     }
 
     public function testCreateSuccess()
