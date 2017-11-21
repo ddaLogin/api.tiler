@@ -46,7 +46,7 @@ class PostController extends ApiController
         $with = $this->checkRelationsNeed(['user', 'collections', 'categories:id', 'likes.user', 'dislikes.user']);
         $posts = $this->postRepository->getOrderByCreatedAtAndPaginate($size, $with);
 
-        return new PostResource($posts->appends($request->all()));
+        return PostResource::collection($posts->appends($request->all()));
     }
 
     /**
@@ -59,13 +59,13 @@ class PostController extends ApiController
      *   @SWG\Response( response=200, description="Success get post detail"),
      * )
      * @param Post $post
-     * @return \Illuminate\Http\JsonResponse
+     * @return PostResource
      */
     public function show(Post $post)
     {
         $with = $this->checkRelationsNeed(['user', 'categories:id', 'collections', 'likes.user', 'dislikes.user']);
         $post->loadMissing($with);
-        return response()->json($post->toArray(), 200);
+        return new PostResource($post);
     }
 
     /**
@@ -79,7 +79,7 @@ class PostController extends ApiController
      * )
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return PostResource
      */
     public function byUser(Request $request, User $user)
     {
@@ -87,7 +87,7 @@ class PostController extends ApiController
         $with = $this->checkRelationsNeed(['collections', 'categories:id', 'likes.user', 'dislikes.user']);
         $posts = $this->postRepository->getByUserIdOrderedByCreatedAtAndPaginate($user->id, $size, $with);
 
-        return new PostResource($posts->appends($request->all()));
+        return PostResource::collection($posts->appends($request->all()));
     }
 
     /**
@@ -110,7 +110,7 @@ class PostController extends ApiController
      * )
      * @param CreatePostRequest $request
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return PostResource
      */
     public function create(CreatePostRequest $request, User $user)
     {
@@ -122,6 +122,6 @@ class PostController extends ApiController
         $data['user_id'] = $user->id;
         $post = $this->postService->publish($data);
 
-        return response()->json($post->toArray(), 201);
+        return new PostResource($post);
     }
 }

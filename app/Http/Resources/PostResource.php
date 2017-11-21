@@ -14,6 +14,16 @@ class PostResource extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'title' => $this->title,
+            'text' => $this->text,
+            'preview' => $this->preview,
+            'user_id' => $this->user_id,
+            'user' => $this->user,
+            'categories' => $this->categories->pluck('id'),
+            'collections' => CollectionResource::collection($this->collections),
+            'likes' => LikeResource::collection($this->likes),
+            'dislikes' => LikeResource::collection($this->dislikes),
+        ];
     }
 }
