@@ -2,10 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Like;
 use Illuminate\Http\Resources\Json\Resource;
 
 class LikeResource extends Resource
 {
+    /** @var Like $this */
+
     /**
      * Transform the resource into an array.
      *
