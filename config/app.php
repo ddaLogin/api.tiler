@@ -162,6 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class, //turn on for Roles lib
 
         /*
          * Package Service Providers...
@@ -179,6 +180,7 @@ return [
 
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        HttpOz\Roles\RolesServiceProvider::class,
     ],
 
     /*

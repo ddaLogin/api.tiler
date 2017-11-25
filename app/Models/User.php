@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Extensions\ValidateTrait;
 use App\Rules\Base64;
+use HttpOz\Roles\Traits\HasRole;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens, HasRole;
 
     /**
      * The attributes that are mass assignable.

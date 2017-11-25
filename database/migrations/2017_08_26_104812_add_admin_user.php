@@ -13,12 +13,16 @@ class AddAdminUser extends Migration
      */
     public function up()
     {
+        $adminRole = \HttpOz\Roles\Models\Role::findBySlug('admin');
+
         $admin = factory(\App\Models\User::class, 1)->create([
             'name' => 'Admin',
             'surname' => null,
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
         ]);
+
+        $admin->first()->attachRole($adminRole);
 
         (new \Laravel\Passport\ClientRepository())->createPasswordGrantClient($admin->first()->id, config('app.name'), '');
         $personalAccessClient = (new \Laravel\Passport\ClientRepository())->createPersonalAccessClient(null, 'Socialite', '');

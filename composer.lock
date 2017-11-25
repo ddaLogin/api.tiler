@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d37da8129c650fb9f2e3fd1f457b038",
+    "content-hash": "49bb5f1e79d64e651bf4e02b6f915d43",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -1382,6 +1382,54 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "httpoz/roles",
+            "version": "v2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/httpoz/roles.git",
+                "reference": "981bf8267c895ec17e139c2163a844ae908307d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/httpoz/roles/zipball/981bf8267c895ec17e139c2163a844ae908307d6",
+                "reference": "981bf8267c895ec17e139c2163a844ae908307d6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HttpOz\\Roles\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oscar Mwanandimai",
+                    "email": "oscar.mwana@gmail.com",
+                    "role": "Architect"
+                }
+            ],
+            "description": "Powerful package for handling roles and permissions in Laravel 5.3.",
+            "homepage": "https://github.com/httpoz/roles",
+            "keywords": [
+                "acl",
+                "httpoz",
+                "illuminate",
+                "laravel",
+                "permissions",
+                "roles"
+            ],
+            "time": "2017-07-01T13:59:24+00:00"
+        },
+        {
             "name": "jakub-onderka/php-console-color",
             "version": "0.1",
             "source": {
@@ -1889,7 +1937,7 @@
             ],
             "authors": [
                 {
-                    "name": "Lu??s Ot??vio Cobucci Oblonczyk",
+                    "name": "Luís Otávio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
                     "role": "Developer"
                 }
@@ -2498,7 +2546,7 @@
                     "role": "Developer"
                 },
                 {
-                    "name": "Hans-J??rgen Petrich",
+                    "name": "Hans-Jürgen Petrich",
                     "email": "petrich@tronic-media.com",
                     "role": "Developer"
                 },
@@ -3331,7 +3379,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jean-Fran??ois Simon",
+                    "name": "Jean-François Simon",
                     "email": "jeanfrancois.simon@sensiolabs.com"
                 },
                 {
@@ -4762,7 +4810,7 @@
             ],
             "authors": [
                 {
-                    "name": "Fran??ois Zaninotto"
+                    "name": "François Zaninotto"
                 }
             ],
             "description": "Faker is a PHP library that generates fake data for you.",
@@ -4857,7 +4905,7 @@
             ],
             "authors": [
                 {
-                    "name": "P??draic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
