@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "barryvdh/laravel-cors": "^0.9.3",
         "darkaonline/l5-swagger": "5.5.*",
+        "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "doctrine/annotations": "1.4.*",
         "doctrine/dbal": "2.5.4",
         "doctrine/doctrine-bundle": "^1.6",

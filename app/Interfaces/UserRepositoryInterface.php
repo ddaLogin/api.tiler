@@ -46,4 +46,13 @@ interface UserRepositoryInterface
      * @return Collection
      */
     public function all(array $with = []);
+
+    /**
+     * return all users order by created at and paginate
+     *
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getAllOrderByCreatedAtAndPaginate($size, array $with = []);
 }

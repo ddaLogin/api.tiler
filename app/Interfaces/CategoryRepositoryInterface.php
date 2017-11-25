@@ -23,9 +23,24 @@ interface CategoryRepositoryInterface
     public function getById(int $id);
 
     /**
+     * store|update category
+     *
+     * @param array $data
+     * @param int|null $id
+     * @return Category
+     */
+    public function store(array $data, int $id = null);
+
+    /**
      * return all categories
      *
      * @return Collection
      */
-    public function all();
+    public function getAll();
+
+    /**
+     * return all categories order by published posts with count of published posts
+     * @return Collection
+     */
+    public function getAllOrderByPublishedPosts();
 }

@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use HttpOz\Roles\Exceptions\GroupDeniedException;
+use HttpOz\Roles\Exceptions\RoleDeniedException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -44,6 +46,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof RoleDeniedException || $exception instanceof GroupDeniedException) {
+            return response()->view('vendor.roles.error', compact('exception'), 403);
+        }
+
         return parent::render($request, $exception);
     }
 

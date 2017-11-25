@@ -72,4 +72,16 @@ class MySQLUserRepository implements UserRepositoryInterface
     {
         return User::with($with)->get();
     }
+
+    /**
+     * return all users order by created at and paginate
+     *
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getAllOrderByCreatedAtAndPaginate($size, array $with = [])
+    {
+        return User::orderBy('created_at', 'DESC')->with($with)->paginate($size);
+    }
 }
