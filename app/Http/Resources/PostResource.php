@@ -23,8 +23,8 @@ class PostResource extends Resource
             'title' => $this->title,
             'text' => $this->text,
             'preview' => $this->preview,
-            'created_at' => $this->created_at->diffForHumans(),
-            'updated_at' => $this->updated_at->diffForHumans(),
+            'created_at' => (string)$this->created_at,
+            'updated_at' => (string)$this->updated_at,
             'user_id' => $this->user_id,
             $this->mergeWhen($relation, [
                 'user' => $this->user,
