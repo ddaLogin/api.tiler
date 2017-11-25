@@ -20,6 +20,7 @@ class PostResource extends Resource
         $relation = $request->get('relations', 1);
 
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'text' => $this->text,
             'preview' => $this->preview,
