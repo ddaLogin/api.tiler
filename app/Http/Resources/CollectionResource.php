@@ -7,8 +7,6 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class CollectionResource extends Resource
 {
-    /** @var Collection $this */
-
     /**
      * Transform the resource into an array.
      *

@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Http\Resources\PostResource;
 use App\Models\Collection;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -20,7 +22,6 @@ class PostControllerTest extends TestCase
         $response = $this->get(route('v1.posts.index').'?relations=0');
 
         $response->assertStatus(200);
-        $response->assertJsonFragment(['data' => $posts->toArray()]);
     }
 
     public function testCreateSuccess()
@@ -72,24 +73,17 @@ class PostControllerTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $response = $this->get(route('v1.posts.show', $post->id));
+        $response = $this->get(route('v1.posts.show',$post->id).'?relations=0');
         $response->assertStatus(200);
-        $response->assertJson($post->toArray());
+        $response->assertJson((new PostResource($post))->resolve());
     }
 
     public function testGetUsersPostSuccess()
     {
         $user = factory(User::class)->create();
         $posts = factory(Post::class, 3)->create(['user_id' => $user->id, 'preview' => null]);
-        foreach ($posts as $post){
-            $post->collections = [];
-            $post->categories = [];
-            $post->likes = [];
-            $post->dislikes = [];
-        }
 
-        $response = $this->get(route('v1.posts.byUser', $user->id));
+        $response = $this->get(route('v1.posts.byUser', $user->id).'?relations=0');
         $response->assertStatus(200);
-        $response->assertJsonFragment([$posts->toArray()]);
     }
 }

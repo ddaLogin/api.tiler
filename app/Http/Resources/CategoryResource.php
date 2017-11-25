@@ -7,8 +7,6 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class CategoryResource extends Resource
 {
-    /** @var Category $this */
-
     /**
      * Transform the resource into an array.
      *
