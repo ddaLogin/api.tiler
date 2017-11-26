@@ -63,6 +63,9 @@ class PostController extends ApiController
      */
     public function show(Post $post)
     {
+        if (!$post->published && Auth::guard('api')->id() != $post->user_id){ //TODO: test it access denied
+            return response()->json(trans('app.accessDenied'), 403);
+        }
         $with = $this->checkRelationsNeed(['user', 'categories:id', 'collections', 'likes.user', 'dislikes.user']);
         $post->loadMissing($with);
         return new PostResource($post);
