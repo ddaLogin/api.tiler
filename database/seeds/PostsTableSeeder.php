@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run(\App\Interfaces\UserRepositoryInterface $userRepository, \App\Interfaces\CategoryRepositoryInterface $categoryRepository)
     {
-        $categories = $categoryRepository->all();
+        $categories = $categoryRepository->getAll();
         if(!$categories){
             $categories = factory(\App\Models\Category::class, 3);
         }

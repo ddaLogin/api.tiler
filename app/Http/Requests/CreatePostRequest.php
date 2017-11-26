@@ -30,6 +30,7 @@ class CreatePostRequest extends FormRequest
             'collections.*' => ['exists:collections,id', new CollectionAccess()],
             'title' => 'required|max:150',
             'text' => 'required',
+            'tags.*' => 'string|regex:/^[^#]\w+$/',
         ];
     }
 }

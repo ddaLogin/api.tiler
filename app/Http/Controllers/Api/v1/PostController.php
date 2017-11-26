@@ -101,6 +101,7 @@ class PostController extends ApiController
      *   @SWG\Parameter( name="title", description="Title of post", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="text", description="Post's text", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="preview", description="Post's preview", required=false, type="string", in="formData"),
+     *   @SWG\Parameter( name="tags[]", description="Post's tags", required=false, type="array", in="formData", @SWG\Items(type="string"), collectionFormat="multi"),
      *   @SWG\Parameter( name="categories[]", description="Post's categories id", required=false, type="array", @SWG\Items(type="integer"), collectionFormat="multi", in="query"),
      *   @SWG\Parameter( name="collections[]", description="Post's collections id", required=false, type="array", @SWG\Items(type="integer"), collectionFormat="multi", in="query"),
      *   @SWG\Response( response=201, description="Success create new post"),

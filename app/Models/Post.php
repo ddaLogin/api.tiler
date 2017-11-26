@@ -13,7 +13,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'text', 'preview',
+        'user_id', 'title', 'text', 'preview', 'tags',
     ];
 
     /**
@@ -23,6 +23,15 @@ class Post extends Model
      */
     protected $hidden = [
         'pivot'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'tags' => 'array',
     ];
 
     /**

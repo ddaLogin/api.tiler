@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('title', 150);
             $table->longText('text');
             $table->longText('preview')->nullable()->default(null);
+            $table->json('tags')->nullable()->default(null);
             $table->timestamps();
         });
     }
