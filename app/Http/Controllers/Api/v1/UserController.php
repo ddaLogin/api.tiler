@@ -85,6 +85,12 @@ class UserController extends ApiController
      */
     public function show(User $user)
     {
+        $cutOptions = true;
+
+        if($user->id == Auth::guard('api')->id()){
+            $cutOptions = false;
+        }
+
         $with = $this->checkRelationsNeed([
             'posts.categories:id',
             'posts.collections:id',
@@ -98,7 +104,7 @@ class UserController extends ApiController
             'dislikes.post.user',
         ]);
         $user->loadMissing($with);
-        return response()->json($user->toArray(), 200);
+        return response()->json($user->toArray($cutOptions), 200);
     }
 
     /**
