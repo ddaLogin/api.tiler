@@ -66,7 +66,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      */
     public function all(array $with = [])
     {
-        return Post::with($with)->get();
+        return Post::with($with)->where('published', true)->get();
     }
 
     /**
@@ -78,7 +78,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      */
     public function getByUserId($user_id, array $with = [])
     {
-        return Post::where('user_id', $user_id)->with($with)->get();
+        return Post::where('user_id', $user_id)->where('published', true)->with($with)->get();
     }
 
     /**
@@ -90,7 +90,7 @@ class MySQLPostRepository implements PostRepositoryInterface
      */
     public function getOrderByCreatedAtAndPaginate($size, array $with = [])
     {
-        return Post::orderBy('created_at', 'DESC')->with($with)->paginate($size);
+        return Post::orderBy('created_at', 'DESC')->with($with)->where('published', true)->paginate($size);
     }
 
     /**
@@ -103,6 +103,19 @@ class MySQLPostRepository implements PostRepositoryInterface
      */
     public function getByUserIdOrderedByCreatedAtAndPaginate($user_id, $size, array $with = [])
     {
-        return Post::where('user_id', $user_id)->orderBy('created_at', 'DESC')->with($with)->paginate($size);
+        return Post::where('user_id', $user_id)->orderBy('created_at', 'DESC')->where('published', true)->with($with)->paginate($size);
+    }
+
+    /**
+     * return all drafts by user id
+     *
+     * @param $user_id
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getDraftsByUserIdOrderedByCreatedAtAndPaginate($user_id, $size, array $with = [])
+    {
+        return Post::where('user_id', $user_id)->orderBy('created_at', 'DESC')->where('published', false)->with($with)->paginate($size);
     }
 }

@@ -67,4 +67,14 @@ interface PostRepositoryInterface
      * @return Collection
      */
     public function getByUserIdOrderedByCreatedAtAndPaginate($user_id, $size, array $with = []);
+
+    /**
+     * return all drafts by user id
+     *
+     * @param $user_id
+     * @param $size
+     * @param array $with
+     * @return Collection
+     */
+    public function getDraftsByUserIdOrderedByCreatedAtAndPaginate($user_id, $size, array $with = []);
 }

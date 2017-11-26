@@ -86,4 +86,24 @@ class PostControllerTest extends TestCase
         $response = $this->get(route('v1.posts.byUser', $user->id).'?relations=0');
         $response->assertStatus(200);
     }
+
+    public function testGetDraftsPostSuccess()
+    {
+        $user = factory(User::class)->create();
+        factory(Post::class, 3)->create(['user_id' => $user->id, 'preview' => null, 'published' => false]);
+
+        Passport::actingAs($user);
+        $response = $this->get(route('v1.posts.drafts', $user->id).'?relations=0');
+        $response->assertStatus(200);
+    }
+
+    public function testGetDraftsPostAccessDenied()
+    {
+        $user = factory(User::class)->create();
+        factory(Post::class, 3)->create(['user_id' => $user->id, 'preview' => null, 'published' => false]);
+
+        Passport::actingAs(User::findorfail(1));
+        $response = $this->get(route('v1.posts.drafts', $user->id).'?relations=0');
+        $response->assertStatus(403);
+    }
 }

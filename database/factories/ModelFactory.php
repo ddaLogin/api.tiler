@@ -43,6 +43,7 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence(6),
         'text' => $faker->text(),
         'tags' => $faker->words(5),
+        'published' => true,
     ];
 });
 

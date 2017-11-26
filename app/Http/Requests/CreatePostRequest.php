@@ -31,6 +31,7 @@ class CreatePostRequest extends FormRequest
             'title' => 'required|max:150',
             'text' => 'required',
             'tags.*' => 'string|regex:/^[^#]\w+$/',
+            'published' => 'boolean',
         ];
     }
 }

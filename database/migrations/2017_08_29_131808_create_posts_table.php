@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->longText('text');
             $table->longText('preview')->nullable()->default(null);
             $table->json('tags')->nullable()->default(null);
+            $table->boolean('published')->default(false);
             $table->timestamps();
         });
     }

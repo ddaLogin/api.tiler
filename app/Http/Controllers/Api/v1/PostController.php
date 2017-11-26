@@ -91,6 +91,32 @@ class PostController extends ApiController
     }
 
     /**
+     * @SWG\Get(
+     *   path="/users/{user_id}/posts/drafts",
+     *   summary="Get user's drafts",
+     *   tags={"Posts"},
+     *   produces={"application/json"},
+     *   @SWG\Parameter( name="user_id", description="User id", required=true, type="string", in="path"),
+     *   @SWG\Response( response=200, description="Success get drafts"),
+     *   security={{"passport":{}}},
+     * )
+     * @param Request $request
+     * @param User $user
+     * @return PostResource
+     */
+    public function drafts(Request $request, User $user)
+    {
+        if (Auth::id() != $user->id){
+            return response()->json(trans('app.accessDenied'), 403);
+        }
+        $size = $request->get('size', config('common.defaultPostCount'));
+        $with = $this->checkRelationsNeed(['collections', 'categories:id']);
+        $posts = $this->postRepository->getDraftsByUserIdOrderedByCreatedAtAndPaginate($user->id, $size, $with);
+
+        return PostResource::collection($posts->appends($request->all()));
+    }
+
+    /**
      * @SWG\Post(
      *   path="/users/{user_id}/posts",
      *   summary="Publish new post",
@@ -101,6 +127,7 @@ class PostController extends ApiController
      *   @SWG\Parameter( name="title", description="Title of post", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="text", description="Post's text", required=true, type="string", in="query"),
      *   @SWG\Parameter( name="preview", description="Post's preview", required=false, type="string", in="formData"),
+     *   @SWG\Parameter( name="published", description="If 1, post will be published, if 0 marked as draft", required=false, type="integer", in="query"),
      *   @SWG\Parameter( name="tags[]", description="Post's tags", required=false, type="array", in="formData", @SWG\Items(type="string"), collectionFormat="multi"),
      *   @SWG\Parameter( name="categories[]", description="Post's categories id", required=false, type="array", @SWG\Items(type="integer"), collectionFormat="multi", in="query"),
      *   @SWG\Parameter( name="collections[]", description="Post's collections id", required=false, type="array", @SWG\Items(type="integer"), collectionFormat="multi", in="query"),
