@@ -1,6 +1,2 @@
 #!/usr/bin/env bash
-$3 -e sftp -oBatchMode=no -b - $2@$1 << !
-   cd incoming
-   put your-log-file.log
-   bye
-!
+lftp sftp://$2:$3@$1 -e "cd ../var/www/test; put package.json; bye"
