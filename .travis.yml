@@ -35,5 +35,8 @@ cache:
     - node_modules
     - vendor
 
-env:
-  - TRAVIS_NODE_VERSION="4"
+deploy:
+  - provider: script
+    script: deploy.sh $SSH_HOST $SSH_USER $SSH_PASSWORD
+    on:
+      branch: master

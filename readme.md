@@ -10,6 +10,7 @@ API for project [Tiler](https://github.com/DAMAGEx1/tiler) base on [Laravel 5.5]
 
 ## Getting started
 - [Configuration Laravel](https://laravel.com/docs/5.4/installation#configuration)
+- Generate key for [Laravel Passport](https://laravel.com/docs/5.5/passport) `php artisan passport:keys`
 - [Install](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies) php dependencies `composer install`
 - Create databases, default names is `tiler` - required, `tiler_test` - for using tests
 - [Run migration](https://laravel.com/docs/5.4/migrations#running-migrations) `php artisan migrate`
